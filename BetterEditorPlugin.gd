@@ -224,5 +224,5 @@ static func file_exists(path:String) -> bool:
 	return DirAccess.open(path).file_exists(path)
 
 ## Checks if a file or directory exists at the given local or absolute path.
-static func path_exists(path:String):
+static func path_exists(path:String) -> bool:
 	return file_exists(path) or dir_exists(path)
