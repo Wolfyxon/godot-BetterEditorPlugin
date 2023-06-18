@@ -111,6 +111,18 @@ static func get_objects_by_class_name(array:Array, class_name_:String, strict:=f
 			push_error(str(i)+" is not an Object. It's an "+string_typeof(i)+". Consider using get_values_by_type()")
 	return res
 	
+static func get_first_object_by_class_name(array:Array, class_name_:String, strict:=false) -> Object:
+	for i in array:
+		if i is Object:
+			if strict: 
+				if i.get_class() == class_name_: return i
+			else:
+				if i.is_class(class_name_): return i
+		else:
+			push_error(str(i)+" is not an Object. It's an "+string_typeof(i)+". Consider using get_values_by_type()")
+	return null
+	
+
 static func get_children_by_class_name(node:Node, class_name_:String, strcit:=false,include_internal:=true) -> Array:
 	return get_objects_by_class_name(node.get_children(include_internal),class_name_,strcit)
 	
