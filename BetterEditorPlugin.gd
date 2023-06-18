@@ -40,18 +40,36 @@ func get_fs_tree() -> Tree:
 func get_fs_selected_item() -> TreeItem:
 	return get_fs_tree().get_selected()
 	
+## Returns selected [TreeItem]s in the FileSystem dock
+func get_fs_selected_items() -> Array[TreeItem]: 
+	return get_selected_tree_items(get_fs_tree())
+
 ## Returns the name of the currently selected file or directory in the FileSystem dock
 func get_fs_selected_item_name() -> String:
 	var item:TreeItem = get_fs_selected_item()
 	if !item: return ""
 	return item.get_text(0)
 	
+## Returns all names of the currently selected files and directories in the FileSystem dock.
+func get_fs_selected_names() -> Array[String]:
+	var res:Array[String] = []
+	for i in get_fs_selected_items():
+		res.append(i.get_text(0))
+	return res
+
 ## Returns the path to the currently selected file or directory in the FileSystem dock.
 func get_fs_selected_path() -> String:
 	var item = get_fs_selected_item()
 	if !item: return ""
 	return item.get_metadata(0)
-	
+
+## Returns paths to all selected files and directories in the FileSystem dock
+func get_fs_selected_paths() -> Array[String]:
+	var res:Array[String] = []
+	for i in get_fs_selected_items():
+		res.append(i.get_metadata(0))
+	return res
+
 # ============== Static methods ============== #
 
 ## Returns a String type name of a TYPE enum. Example [code]print( type_name( typeof("hello") ) )[/code] will print [code]String[/code]
