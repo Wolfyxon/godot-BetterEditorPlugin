@@ -213,6 +213,16 @@ static func get_first_child_by_class_name(node:Node, class_name_:String, strcit:
 static func get_first_descendant_by_class_name(node:Node, class_name_:String, strcit:=false,include_internal:=true) -> Node:
 	return get_first_object_by_class_name(get_descendants(node,include_internal),class_name_,strcit)
 	
-	
-	
-	
+## Checks if a directory exists at the given local or absolute path.
+static func dir_exists(path:String) -> bool:
+	if path == "res://": return true
+	return DirAccess.open(path).dir_exists(path)
+
+## Checks if a file exists at the given local or absolute path.
+static func file_exists(path:String) -> bool:
+	if path == "res://": return false
+	return DirAccess.open(path).file_exists(path)
+
+## Checks if a file or directory exists at the given local or absolute path.
+static func path_exists(path:String):
+	return file_exists(path) or dir_exists(path)
