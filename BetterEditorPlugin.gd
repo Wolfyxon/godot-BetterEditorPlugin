@@ -19,14 +19,14 @@ class_name BetterEditorPlugin
 var fs_context_menu:PopupMenu
 
 ## Returns an Array of [PopupMenu]s containing context (right click) menus in the FileSystem dock
-func get_fs_dock_context_menus() -> Array:
+func get_fs_context_menus() -> Array:
 	var dock:FileSystemDock = get_editor_interface().get_file_system_dock()
 	return get_children_by_class_name(dock,"PopupMenu")
 
 ## Returns the current context (right click) menu in the FileSystem dock.
-func get_fs_dock_context_menu() -> PopupMenu:
+func get_fs_context_menu() -> PopupMenu:
 	if fs_context_menu: return fs_context_menu
-	var menus = get_fs_dock_context_menus()
+	var menus = get_fs_context_menus()
 	if menus.size()==0: return
 	var menu = menus[menus.size()-1]
 	fs_context_menu = menu
