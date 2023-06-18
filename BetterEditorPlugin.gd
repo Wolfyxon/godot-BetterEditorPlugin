@@ -18,6 +18,8 @@ class_name BetterEditorPlugin
 
 signal filesystem_context_menu_opened
 signal filesystem_context_menu_closed
+signal filesystem_dir_context_menu_opened
+signal filesystem_file_context_menu_opened
 signal filesystem_context_menu_index_clicked(index:int)
 signal filesystem_context_menu_id_clicked(id:int)
 
@@ -44,6 +46,11 @@ func _notification(what):
 
 func _fs_context_menu_opened():
 	filesystem_context_menu_opened.emit()
+	
+	if is_fs_selected_path_file_or_dir() == PATH_TYPE.Directory:
+		filesystem_dir_context_menu_opened.emit()
+	if is_fs_selected_path_file_or_dir() == PATH_TYPE.File:
+		filesystem_file_context_menu_opened.emit()
 
 func _fs_context_menu_closed():
 	filesystem_context_menu_closed.emit()
