@@ -32,6 +32,9 @@ func get_fs_context_menu() -> PopupMenu:
 	fs_context_menu = menu
 	return menu
 
+func get_fs_tree() -> Tree:
+	return get_first_descendant_by_class_name(get_editor_interface().get_file_system_dock(),"Tree",true)
+	
 # ============== Static methods ============== #
 
 ## Returns a String type name of a TYPE enum. Example [code]print( type_name( typeof("hello") ) )[/code] will print [code]String[/code]
