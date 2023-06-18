@@ -103,6 +103,18 @@ static func type_name(type:int) -> String:
 ## Returns a String type name of a value. Example [code]print( string_typeof("hello") )[/code] will print [code]String[/code]
 static func string_typeof(value) -> String: return type_name(typeof(value))
 
+## Returns all selected [TreeItem]s in a [Tree]
+static func get_selected_tree_items(tree:Tree) -> Array[TreeItem]:
+	var res:Array[TreeItem] = []
+	var first = tree.get_selected()
+	var next = tree.get_next_selected(null)
+	
+	while next:
+		res.append(next)
+		next = tree.get_next_selected(next)
+	
+	return res
+
 ## A recursive function that returns all nodes in tree of selected node.
 static func get_descendants(node:Node,include_internal:=true) -> Array[Node]:
 	var res:Array[Node] = []
