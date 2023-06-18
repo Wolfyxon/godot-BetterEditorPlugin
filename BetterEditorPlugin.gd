@@ -16,6 +16,9 @@
 extends EditorPlugin
 class_name BetterEditorPlugin
 
+signal filesystem_context_menu_opened
+signal filesystem_context_menu_closed
+
 var fs_context_menu:PopupMenu
 
 # ============== Private methods ============== #
@@ -25,9 +28,18 @@ var fs_context_menu:PopupMenu
 func _notification(what):
 	if what == NOTIFICATION_ENTER_TREE:
 		get_fs_context_menu()
+		fs_context_menu.about_to_popup.connect(_fs_context_menu_opened)
+		fs_context_menu.popup_hide.connect(_fs_context_menu_closed)
+		
 	
 	if what == NOTIFICATION_EXIT_TREE:
 		pass
+
+func _fs_context_menu_opened():
+	filesystem_context_menu_opened.emit()
+
+func _fs_context_menu_closed():
+	filesystem_context_menu_closed.emit()
 
 # ============== User methods ============== #
 
