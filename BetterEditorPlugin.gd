@@ -56,6 +56,22 @@ func get_fs_context_menu() -> PopupMenu:
 	fs_context_menu = menu
 	return menu
 
+## Adds a button to the FileSystem dock context (right click) menu
+func add_fs_context_menu_item(label:String, id:=-1):
+	get_fs_context_menu().add_item(label,id)
+
+## Adds a button with an icon to the FileSystem dock context (right click) menu.
+func add_fs_context_menu_icon_item(label:String, icon:Texture2D, id:=-1):
+	get_fs_context_menu().add_icon_item(icon,label,id)
+
+## Adds a check button to the FileSystem dock context (right click) menu
+func add_fs_context_menu_check_item(label:String, id:=-1):
+	get_fs_context_menu().add_check_item(label,id)
+
+## Adds a check button with an icon to the FileSystem dock context (right click) menu
+func add_fs_context_menu_icon_check_item(label:String, icon:Texture2D, id:=-1):
+	get_fs_context_menu().add_icon_check_item(icon, label, id)
+
 ## Gets the file tree in the FileSystem dock.
 func get_fs_tree() -> Tree:
 	return get_first_descendant_by_class_name(get_editor_interface().get_file_system_dock(),"Tree",true)
