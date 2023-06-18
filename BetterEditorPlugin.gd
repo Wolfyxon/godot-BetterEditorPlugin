@@ -18,6 +18,8 @@ class_name BetterEditorPlugin
 
 var fs_context_menu:PopupMenu
 
+# ============== Private methods ============== #
+
 # _enter_tree and _exit_tree can't be used because they will be overwritten by the extended classes.
 # _notification will always fire no matter if it's overwritten. 
 func _notification(what):
@@ -25,6 +27,8 @@ func _notification(what):
 		pass
 	if what == NOTIFICATION_EXIT_TREE:
 		pass
+
+# ============== User methods ============== #
 
 ## Returns an Array of [PopupMenu]s containing context (right click) menus in the FileSystem dock
 func get_fs_context_menus() -> Array:
