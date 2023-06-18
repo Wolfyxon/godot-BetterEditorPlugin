@@ -19,6 +19,8 @@ class_name BetterEditorPlugin
 signal filesystem_context_menu_opened
 signal filesystem_context_menu_closed
 
+enum PATH_TYPE {Nonexistent, File, Directory}
+
 var fs_context_menu:PopupMenu
 
 # ============== Private methods ============== #
@@ -226,3 +228,9 @@ static func file_exists(path:String) -> bool:
 ## Checks if a file or directory exists at the given local or absolute path.
 static func path_exists(path:String) -> bool:
 	return file_exists(path) or dir_exists(path)
+
+## Determines is a file or a directory exists at the given path. Returns [enum PATH_TYPE.Nonexistent] if nothing exists.
+static func is_file_or_dir(path:String) -> PATH_TYPE:
+	if file_exists(path): return PATH_TYPE.File
+	if dir_exists(path): return PATH_TYPE.Directory
+	return PATH_TYPE.Nonexistent
