@@ -24,7 +24,8 @@ var fs_context_menu:PopupMenu
 # _notification will always fire no matter if it's overwritten. 
 func _notification(what):
 	if what == NOTIFICATION_ENTER_TREE:
-		pass
+		get_fs_context_menu()
+	
 	if what == NOTIFICATION_EXIT_TREE:
 		pass
 
