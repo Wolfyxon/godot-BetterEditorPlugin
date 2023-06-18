@@ -35,6 +35,19 @@ func get_fs_context_menu() -> PopupMenu:
 func get_fs_tree() -> Tree:
 	return get_first_descendant_by_class_name(get_editor_interface().get_file_system_dock(),"Tree",true)
 	
+func get_fs_selected_item() -> TreeItem:
+	return get_fs_tree().get_selected()
+	
+func get_fs_selected_item_name() -> String:
+	var item:TreeItem = get_fs_selected_item()
+	if !item: return ""
+	return item.get_text(0)
+	
+func get_fs_selected_path() -> String:
+	var item = get_fs_selected_item()
+	if !item: return ""
+	return item.get_metadata(0)
+	
 # ============== Static methods ============== #
 
 ## Returns a String type name of a TYPE enum. Example [code]print( type_name( typeof("hello") ) )[/code] will print [code]String[/code]
