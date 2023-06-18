@@ -31,15 +31,11 @@ func _notification(what):
 
 # ============== User methods ============== #
 
-## Returns an Array of [PopupMenu]s containing context (right click) menus in the FileSystem dock
-func get_fs_context_menus() -> Array:
-	var dock:FileSystemDock = get_editor_interface().get_file_system_dock()
-	return get_children_by_class_name(dock,"PopupMenu")
-
 ## Returns the current context (right click) menu in the FileSystem dock.
 func get_fs_context_menu() -> PopupMenu:
 	if fs_context_menu: return fs_context_menu
-	var menus = get_fs_context_menus()
+	var dock:FileSystemDock = get_editor_interface().get_file_system_dock()
+	var menus = get_children_by_class_name(dock,"PopupMenu")
 	if menus.size()==0: return
 	var menu = menus[menus.size()-1]
 	fs_context_menu = menu
