@@ -305,7 +305,7 @@ static func dir_exists(path:String) -> bool:
 ## Checks if a file exists at the given local or absolute path.
 static func file_exists(path:String) -> bool:
 	if path == "res://": return false
-	return DirAccess.open(path).file_exists(path)
+	return DirAccess.open(path.get_base_dir()).file_exists(path)
 
 ## Checks if a file or directory exists at the given local or absolute path.
 static func path_exists(path:String) -> bool:
