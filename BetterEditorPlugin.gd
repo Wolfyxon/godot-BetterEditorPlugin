@@ -18,6 +18,14 @@ class_name BetterEditorPlugin
 
 var fs_context_menu:PopupMenu
 
+# _enter_tree and _exit_tree can't be used because they will be overwritten by the extended classes.
+# _notification will always fire no matter if it's overwritten. 
+func _notification(what):
+	if what == NOTIFICATION_ENTER_TREE:
+		pass
+	if what == NOTIFICATION_EXIT_TREE:
+		pass
+
 ## Returns an Array of [PopupMenu]s containing context (right click) menus in the FileSystem dock
 func get_fs_context_menus() -> Array:
 	var dock:FileSystemDock = get_editor_interface().get_file_system_dock()
