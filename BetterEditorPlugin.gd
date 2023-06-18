@@ -32,17 +32,21 @@ func get_fs_context_menu() -> PopupMenu:
 	fs_context_menu = menu
 	return menu
 
+## Gets the file tree in the FileSystem dock.
 func get_fs_tree() -> Tree:
 	return get_first_descendant_by_class_name(get_editor_interface().get_file_system_dock(),"Tree",true)
-	
+
+## Gets the currently selected [TreeItem] in the FileSystem dock
 func get_fs_selected_item() -> TreeItem:
 	return get_fs_tree().get_selected()
 	
+## Returns the name of the currently selected file or directory in the FileSystem dock
 func get_fs_selected_item_name() -> String:
 	var item:TreeItem = get_fs_selected_item()
 	if !item: return ""
 	return item.get_text(0)
 	
+## Returns the path to the currently selected file or directory in the FileSystem dock.
 func get_fs_selected_path() -> String:
 	var item = get_fs_selected_item()
 	if !item: return ""
@@ -109,12 +113,14 @@ static func get_descendants(node:Node,include_internal:=true) -> Array[Node]:
 	
 	return res
 
+## Returns all values from given array matching the specified type.
 static func get_values_by_type(array:Array, type:int) -> Array:
 	var res = []
 	for i in array:
 		if type == typeof(i): res.append(i)
 	return res
 
+## Returns all [Object]s and classes extending them such as [Node]s from the given array, matching (if [code]strict[/code] is true) the given class name or extending it (if [code]strict[/code] is false) 
 static func get_objects_by_class_name(array:Array, class_name_:String, strict:=false) -> Array:
 	var res = []
 	for i in array:
@@ -126,7 +132,8 @@ static func get_objects_by_class_name(array:Array, class_name_:String, strict:=f
 		else:
 			push_error(str(i)+" is not an Object. It's an "+string_typeof(i)+". Consider using get_values_by_type()")
 	return res
-	
+
+## Returns the first [Object] or a class extending it such as [Node] from the given array, matching (if [code]strict[/code] is true) the given class name or extending it (if [code]strict[/code] is false) 
 static func get_first_object_by_class_name(array:Array, class_name_:String, strict:=false) -> Object:
 	for i in array:
 		if i is Object:
@@ -139,15 +146,19 @@ static func get_first_object_by_class_name(array:Array, class_name_:String, stri
 	return null
 	
 
+## Returns all children [Node]s from the given array, matching (if [code]strict[/code] is true) the given class name or extending it (if [code]strict[/code] is false) 
 static func get_children_by_class_name(node:Node, class_name_:String, strcit:=false,include_internal:=true) -> Array:
 	return get_objects_by_class_name(node.get_children(include_internal),class_name_,strcit)
 	
+## Returns all descendant [Node]s from the given array, matching (if [code]strict[/code] is true) the given class name or extending it (if [code]strict[/code] is false) 
 static func get_descendants_by_class_name(node:Node, class_name_:String, strcit:=false,include_internal:=true) -> Array:
 	return get_objects_by_class_name(get_descendants(node,include_internal),class_name_,strcit)
 	
+## Returns the first child [Node] from the given array, matching (if [code]strict[/code] is true) the given class name or extending it (if [code]strict[/code] is false) 
 static func get_first_child_by_class_name(node:Node, class_name_:String, strcit:=false,include_internal:=true) -> Node:
 	return get_first_object_by_class_name(node.get_children(include_internal),class_name_,strcit)
 	
+## Returns the first descendant [Node] from the given array, matching (if [code]strict[/code] is true) the given class name or extending it (if [code]strict[/code] is false) 
 static func get_first_descendant_by_class_name(node:Node, class_name_:String, strcit:=false,include_internal:=true) -> Node:
 	return get_first_object_by_class_name(get_descendants(node,include_internal),class_name_,strcit)
 	
