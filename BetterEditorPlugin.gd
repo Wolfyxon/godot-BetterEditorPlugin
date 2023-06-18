@@ -27,6 +27,19 @@ enum PATH_TYPE {Nonexistent, File, Directory}
 
 var fs_context_menu:PopupMenu
 
+var registered_fs_dir_options = [
+#	{
+#		label: "option label"
+#		icon: Texture2D or null
+#	}
+]
+var registered_fs_file_options = [
+#	{
+#		label: "option label"
+#		icon: Texture2D or null
+#	}
+]
+
 # ============== Private methods ============== #
 # Please do not overwrite these methods or this class won't work properly
 
@@ -49,8 +62,19 @@ func _fs_context_menu_opened():
 	
 	if is_fs_selected_path_file_or_dir() == PATH_TYPE.Directory:
 		filesystem_dir_context_menu_opened.emit()
+		for i in registered_fs_dir_options:
+			if ("texture" in i) and i["icon"]:
+				add_fs_context_menu_icon_item(i["label"],i["icon"])
+			else:
+				add_fs_context_menu_item(i["label"])
+		
 	if is_fs_selected_path_file_or_dir() == PATH_TYPE.File:
 		filesystem_file_context_menu_opened.emit()
+		for i in registered_fs_file_options:
+			if ("texture" in i) and i["icon"]:
+				add_fs_context_menu_icon_item(i["label"],i["icon"])
+			else:
+				add_fs_context_menu_item(i["label"])
 
 func _fs_context_menu_closed():
 	filesystem_context_menu_closed.emit()
@@ -72,6 +96,24 @@ func get_fs_context_menu() -> PopupMenu:
 	var menu = menus[menus.size()-1]
 	fs_context_menu = menu
 	return menu
+
+## Permanentaly (unless the plugin is disabled) adds an option to the directory context (right click) menu in the FileSystem dock
+func register_fs_dir_context_option(label:String, icon:Texture2D=null):
+	registered_fs_dir_options.append(
+		{
+			"label": label,
+			"icon": icon
+		}
+	)
+
+## Permanentaly (unless the plugin is disabled) adds an option to the file context (right click) menu in the FileSystem dock
+func register_fs_file_context_option(label:String, icon:Texture2D=null):
+	registered_fs_file_options.append(
+		{
+			"label": label,
+			"icon": icon
+		}
+	)
 
 ## Adds a button to the FileSystem dock context (right click) menu
 func add_fs_context_menu_item(label:String, id:=-1):
