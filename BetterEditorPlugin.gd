@@ -24,6 +24,7 @@ enum PATH_TYPE {Nonexistent, File, Directory}
 var fs_context_menu:PopupMenu
 
 # ============== Private methods ============== #
+# Please do not overwrite these methods or this class won't work properly
 
 # _enter_tree and _exit_tree can't be used because they will be overwritten by the extended classes.
 # _notification will always fire no matter if it's overwritten. 
