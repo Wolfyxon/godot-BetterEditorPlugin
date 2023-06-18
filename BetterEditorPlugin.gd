@@ -93,6 +93,12 @@ func get_fs_selected_paths() -> Array[String]:
 		res.append(i.get_metadata(0))
 	return res
 
+## Checks if the selected entry in the FileSystem dock is a file or directory. See also [method is_file_or_dir]
+func is_fs_selected_path_file_or_dir() -> PATH_TYPE:
+	var path = get_fs_selected_path()
+	if path == "": return PATH_TYPE.Nonexistent
+	return is_file_or_dir(path)
+
 # ============== Static methods ============== #
 
 ## Returns a String type name of a TYPE enum. Example [code]print( type_name( typeof("hello") ) )[/code] will print [code]String[/code]
