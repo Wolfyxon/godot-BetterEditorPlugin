@@ -129,6 +129,11 @@ static func get_children_by_class_name(node:Node, class_name_:String, strcit:=fa
 static func get_descendants_by_class_name(node:Node, class_name_:String, strcit:=false,include_internal:=true) -> Array:
 	return get_objects_by_class_name(get_descendants(node,include_internal),class_name_,strcit)
 	
+static func get_first_child_by_class_name(node:Node, class_name_:String, strcit:=false,include_internal:=true) -> Node:
+	return get_first_object_by_class_name(node.get_children(include_internal),class_name_,strcit)
+	
+static func get_fist_descendant_by_class_name(node:Node, class_name_:String, strcit:=false,include_internal:=true) -> Node:
+	return get_first_object_by_class_name(get_descendants(node,include_internal),class_name_,strcit)
 	
 	
 	
