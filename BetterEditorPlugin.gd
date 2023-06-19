@@ -120,26 +120,29 @@ func register_fs_file_context_option(label:String, icon:Texture2D=null):
 		}
 	)
 
-## Adds a button to the FileSystem dock context (right click) menu
-func add_fs_context_menu_item(label:String,meta=null):
+## Adds a button to the FileSystem dock context (right click) menu. Returns index of the created item
+func add_fs_context_menu_item(label:String,meta=null) -> int:
 	var id = _get_id_for_new_fs_context_item()
 	get_fs_context_menu().add_item(label,id)
 	var idx = get_fs_context_menu().get_item_index(id)
 	get_fs_context_menu().set_item_metadata(idx,meta)
+	return idx
 
-## Adds a button with an icon to the FileSystem dock context (right click) menu.
-func add_fs_context_menu_icon_item(label:String, icon:Texture2D, meta=null):
+## Adds a button with an icon to the FileSystem dock context (right click) menu. Returns index of the created item
+func add_fs_context_menu_icon_item(label:String, icon:Texture2D, meta=null) -> int:
 	var id = _get_id_for_new_fs_context_item()
 	get_fs_context_menu().add_icon_item(icon,label,id)
 	var idx = get_fs_context_menu().get_item_index(id)
 	get_fs_context_menu().set_item_metadata(idx,meta)
+	return idx
 
-## Adds a check button to the FileSystem dock context (right click) menu
-func add_fs_context_menu_check_item(label:String, meta=null):
+## Adds a check button to the FileSystem dock context (right click) menu. Returns index of the created item
+func add_fs_context_menu_check_item(label:String, meta=null) -> int:
 	var id = _get_id_for_new_fs_context_item()
 	get_fs_context_menu().add_check_item(label,id)
 	var idx = get_fs_context_menu().get_item_index(id)
 	get_fs_context_menu().set_item_metadata(idx,meta)
+	return idx
 
 ## Adds a check button with an icon to the FileSystem dock context (right click) menu
 func add_fs_context_menu_icon_check_item(label:String, icon:Texture2D):
