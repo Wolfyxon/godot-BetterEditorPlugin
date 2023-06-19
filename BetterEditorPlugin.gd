@@ -51,7 +51,7 @@ func _notification(what):
 		fs_context_menu.about_to_popup.connect(_fs_context_menu_opened)
 		fs_context_menu.popup_hide.connect(_fs_context_menu_closed)
 		fs_context_menu.index_pressed.connect(_fs_context_menu_index_clicked)
-		fs_context_menu.id_pressed.connect(_fs_context_menu_index_clicked)
+		fs_context_menu.id_pressed.connect(_fs_id_menu_index_clicked)
 		
 	
 	if what == NOTIFICATION_EXIT_TREE:
