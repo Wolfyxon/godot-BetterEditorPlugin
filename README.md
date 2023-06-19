@@ -17,7 +17,7 @@ extends BetterEditorPlugin
 Please note that more features will appear over time.  
 - manipulating items in the FileSystem dock
 - getting selected file and directory paths in the FileSystem dock
-- manipulating context menu in the FileSystem dock
+- manipulating (includes custom options) context menu in the FileSystem dock
 - Many useful static utility functions that might also be helpful outisde plugins
 
 Feel free to suggest anything you'd like to see!
