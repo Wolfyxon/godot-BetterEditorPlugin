@@ -67,21 +67,19 @@ func _fs_context_menu_opened():
 		filesystem_dir_context_menu_opened.emit()
 		for i in registered_fs_dir_options:
 			var label = i["label"]
-			var id = _get_id_for_new_fs_context_item()
 			if ("icon" in i) and i["icon"]:
-				add_fs_context_menu_icon_item(i["label"],i["icon"],id)
+				add_fs_context_menu_icon_item(i["label"],i["icon"])
 			else:
-				add_fs_context_menu_item(i["label"],id)
+				add_fs_context_menu_item(i["label"])
 		
 	if is_fs_selected_path_file_or_dir() == PATH_TYPE.File:
 		filesystem_file_context_menu_opened.emit()
 		for i in registered_fs_file_options:
 			var label = i["label"]
-			var id = _get_id_for_new_fs_context_item()
 			if ("icon" in i) and i["icon"]:
-				add_fs_context_menu_icon_item(i["label"],i["icon"],id)
+				add_fs_context_menu_icon_item(i["label"],i["icon"])
 			else:
-				add_fs_context_menu_item(i["label"],id)
+				add_fs_context_menu_item(i["label"])
 
 func _fs_context_menu_closed():
 	filesystem_context_menu_closed.emit()
@@ -123,20 +121,20 @@ func register_fs_file_context_option(label:String, icon:Texture2D=null):
 	)
 
 ## Adds a button to the FileSystem dock context (right click) menu
-func add_fs_context_menu_item(label:String, id:=-1):
-	get_fs_context_menu().add_item(label,id)
+func add_fs_context_menu_item(label:String):
+	get_fs_context_menu().add_item(label,_get_id_for_new_fs_context_item())
 
 ## Adds a button with an icon to the FileSystem dock context (right click) menu.
-func add_fs_context_menu_icon_item(label:String, icon:Texture2D, id:=-1):
-	get_fs_context_menu().add_icon_item(icon,label,id)
+func add_fs_context_menu_icon_item(label:String, icon:Texture2D):
+	get_fs_context_menu().add_icon_item(icon,label,_get_id_for_new_fs_context_item())
 
 ## Adds a check button to the FileSystem dock context (right click) menu
-func add_fs_context_menu_check_item(label:String, id:=-1):
-	get_fs_context_menu().add_check_item(label,id)
+func add_fs_context_menu_check_item(label:String):
+	get_fs_context_menu().add_check_item(label,_get_id_for_new_fs_context_item())
 
 ## Adds a check button with an icon to the FileSystem dock context (right click) menu
-func add_fs_context_menu_icon_check_item(label:String, icon:Texture2D, id:=-1):
-	get_fs_context_menu().add_icon_check_item(icon, label, id)
+func add_fs_context_menu_icon_check_item(label:String, icon:Texture2D):
+	get_fs_context_menu().add_icon_check_item(icon, label, _get_id_for_new_fs_context_item())
 
 ## Gets the file tree in the FileSystem dock.
 func get_fs_tree() -> Tree:
