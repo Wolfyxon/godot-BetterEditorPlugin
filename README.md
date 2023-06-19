@@ -21,3 +21,6 @@ Please note that more features will appear over time.
 - Many useful static utility functions that might also be helpful outisde plugins
 
 Feel free to suggest anything you'd like to see!
+
+## Usage and documentation
+All methods are explained. In the script editor on the top right corner press **Search Help**, find `BetterEditorPlugin` then click on it and you will see the full documentation of this class.
