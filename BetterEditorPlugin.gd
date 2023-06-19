@@ -68,7 +68,7 @@ func _fs_context_menu_opened():
 		for i in registered_fs_dir_options:
 			var label = i["label"]
 			var id = _get_id_for_new_fs_context_item()
-			if ("texture" in i) and i["icon"]:
+			if ("icon" in i) and i["icon"]:
 				add_fs_context_menu_icon_item(i["label"],i["icon"],id)
 			else:
 				add_fs_context_menu_item(i["label"],id)
@@ -78,7 +78,7 @@ func _fs_context_menu_opened():
 		for i in registered_fs_file_options:
 			var label = i["label"]
 			var id = _get_id_for_new_fs_context_item()
-			if ("texture" in i) and i["icon"]:
+			if ("icon" in i) and i["icon"]:
 				add_fs_context_menu_icon_item(i["label"],i["icon"],id)
 			else:
 				add_fs_context_menu_item(i["label"],id)
