@@ -57,18 +57,17 @@ func _notification(what):
 	if what == NOTIFICATION_EXIT_TREE:
 		pass
 
-func _hash_id(id:String) -> int:
-	return id.hash() * randi()
+func _get_id_for_new_fs_context_item() -> int:
+	return get_fs_context_menu().item_count+1
 
 func _fs_context_menu_opened():
 	filesystem_context_menu_opened.emit()
-	
-	#await get_tree().physics_frame
+
 	if is_fs_selected_path_file_or_dir() == PATH_TYPE.Directory:
 		filesystem_dir_context_menu_opened.emit()
 		for i in registered_fs_dir_options:
 			var label = i["label"]
-			var id = _hash_id(label)
+			var id = _get_id_for_new_fs_context_item()
 			if ("texture" in i) and i["icon"]:
 				add_fs_context_menu_icon_item(i["label"],i["icon"],id)
 			else:
@@ -78,7 +77,7 @@ func _fs_context_menu_opened():
 		filesystem_file_context_menu_opened.emit()
 		for i in registered_fs_file_options:
 			var label = i["label"]
-			var id = _hash_id(label)
+			var id = _get_id_for_new_fs_context_item()
 			if ("texture" in i) and i["icon"]:
 				add_fs_context_menu_icon_item(i["label"],i["icon"],id)
 			else:
@@ -89,7 +88,7 @@ func _fs_context_menu_closed():
 
 func _fs_context_menu_index_clicked(index:int):
 	filesystem_context_menu_index_clicked.emit(index)
-
+	
 func _fs_context_menu_id_clicked(id:int):
 	filesystem_context_menu_id_clicked.emit(id)
 
