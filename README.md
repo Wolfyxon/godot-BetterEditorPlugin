@@ -22,5 +22,8 @@ Please note that more features will appear over time.
 
 Feel free to suggest anything you'd like to see!
 
+## Examples
+- [OpenInTerminal](https://github.com/Wolfyxon/godot-BetterEditorPlugin/tree/main/examples/OpenInTerminal) a example plugin that adds a FileSystem context mneu option that allows you to open the system terminal in the selected directory
+
 ## Usage and documentation
 All methods are explained. In the script editor on the top right corner press **Search Help**, find `BetterEditorPlugin` then click on it and you will see the full documentation of this class.
