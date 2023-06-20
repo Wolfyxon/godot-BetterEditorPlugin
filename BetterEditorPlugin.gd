@@ -53,6 +53,7 @@ class PopupMenuItem:
 	func get_index() -> int: return index
 	func get_text() -> String: return popup_menu.get_item_text(index)
 	func get_icon() -> Texture2D: return popup_menu.get_item_icon(index)
+	func get_metadata(): return popup_menu.get_item_metadata(index)
 
 # ============== Private methods ============== #
 # Please do not overwrite these methods or this class won't work properly
