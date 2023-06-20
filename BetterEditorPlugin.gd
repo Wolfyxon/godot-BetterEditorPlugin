@@ -40,6 +40,19 @@ var registered_fs_file_options = [
 #	}
 ]
 
+class PopupMenuItem:
+	var popup_menu:PopupMenu
+	var index:int
+
+	func _init(source:PopupMenu,index:int):
+		popup_menu = source
+		self.index = index
+	
+	func get_id() -> int: return popup_menu.get_item_id(index)
+	func get_index() -> int: return index
+	func get_text() -> String: return popup_menu.get_item_text(index)
+	func get_icon() -> Texture2D: return popup_menu.get_item_icon(index)
+
 # ============== Private methods ============== #
 # Please do not overwrite these methods or this class won't work properly
 
