@@ -54,7 +54,13 @@ class PopupMenuItem:
 	func get_text() -> String: return popup_menu.get_item_text(index)
 	func get_icon() -> Texture2D: return popup_menu.get_item_icon(index)
 	func get_metadata(): return popup_menu.get_item_metadata(index)
-
+	func get_string_id() -> String:
+		var meta = get_metadata()
+		if !meta or !typeof(meta) == TYPE_DICTIONARY:
+			push_error("Item metadata does not contain the required data")
+			return ""
+		return meta["strID"]
+	
 # ============== Private methods ============== #
 # Please do not overwrite these methods or this class won't work properly
 
@@ -83,18 +89,18 @@ func _fs_context_menu_opened():
 		for i in registered_fs_dir_options:
 			var label = i["label"]
 			if ("icon" in i) and i["icon"]:
-				add_fs_context_menu_icon_item(i["label"],i["icon"])
+				add_fs_context_menu_icon_item(i["label"],i["icon"],{"strID":i["strID"]})
 			else:
-				add_fs_context_menu_item(i["label"])
+				add_fs_context_menu_item(i["label"],{"strID":i["strID"]})
 		
 	if is_fs_selected_path_file_or_dir() == PATH_TYPE.File:
 		filesystem_file_context_menu_opened.emit()
 		for i in registered_fs_file_options:
 			var label = i["label"]
 			if ("icon" in i) and i["icon"]:
-				add_fs_context_menu_icon_item(i["label"],i["icon"])
+				add_fs_context_menu_icon_item(i["label"],i["icon"],{"strID":i["strID"]})
 			else:
-				add_fs_context_menu_item(i["label"])
+				add_fs_context_menu_item(i["label"],{"strID":i["strID"]})
 
 func _fs_context_menu_closed():
 	filesystem_context_menu_closed.emit()
@@ -120,20 +126,24 @@ func get_fs_context_menu() -> PopupMenu:
 	return menu
 
 ## Permanentaly (unless the plugin is disabled) adds an option to the directory context (right click) menu in the FileSystem dock
-func register_fs_dir_context_option(label:String, icon:Texture2D=null):
+func register_fs_dir_context_option(label:String, id:String="", icon:Texture2D=null):
+	if id == "": id = label
 	registered_fs_dir_options.append(
 		{
 			"label": label,
-			"icon": icon
+			"icon": icon,
+			"strID": id
 		}
 	)
 
 ## Permanentaly (unless the plugin is disabled) adds an option to the file context (right click) menu in the FileSystem dock
-func register_fs_file_context_option(label:String, icon:Texture2D=null):
+func register_fs_file_context_option(label:String, id:String="", icon:Texture2D=null):
+	if id == "": id = label
 	registered_fs_file_options.append(
 		{
 			"label": label,
-			"icon": icon
+			"icon": icon,
+			"strID": id
 		}
 	)
 
