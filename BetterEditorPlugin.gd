@@ -20,6 +20,7 @@ signal filesystem_context_menu_opened
 signal filesystem_context_menu_closed
 signal filesystem_dir_context_menu_opened
 signal filesystem_file_context_menu_opened
+signal filesystem_context_menu_item_clicked(item:PopupMenuItem)
 signal filesystem_context_menu_index_clicked(index:int)
 signal filesystem_context_menu_id_clicked(id:int)
 
@@ -99,7 +100,9 @@ func _fs_context_menu_closed():
 
 func _fs_context_menu_index_clicked(index:int):
 	filesystem_context_menu_index_clicked.emit(index)
-	
+	var item = PopupMenuItem.new(get_fs_context_menu(),index)
+	if item: filesystem_context_menu_item_clicked.emit(item)
+
 func _fs_context_menu_id_clicked(id:int):
 	filesystem_context_menu_id_clicked.emit(id)
 
