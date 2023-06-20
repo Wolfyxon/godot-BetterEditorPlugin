@@ -82,6 +82,7 @@ func _get_id_for_new_fs_context_item() -> int:
 func _fs_context_menu_opened():
 	filesystem_context_menu_opened.emit()
 
+
 	if is_fs_selected_path_file_or_dir() == PATH_TYPE.Directory:
 		filesystem_dir_context_menu_opened.emit()
 		for i in registered_fs_dir_options:
@@ -149,7 +150,7 @@ func register_fs_file_context_option(label:String, id:String="", icon:Texture2D=
 func add_fs_context_menu_item(label:String,meta=null) -> int:
 	var id = _get_id_for_new_fs_context_item()
 	get_fs_context_menu().add_item(label,id)
-	var idx = get_fs_context_menu().get_item_index(id)
+	var idx = id-1#get_fs_context_menu().get_item_index(id)
 	get_fs_context_menu().set_item_metadata(idx,meta)
 	return idx
 
@@ -157,7 +158,7 @@ func add_fs_context_menu_item(label:String,meta=null) -> int:
 func add_fs_context_menu_icon_item(label:String, icon:Texture2D, meta=null) -> int:
 	var id = _get_id_for_new_fs_context_item()
 	get_fs_context_menu().add_icon_item(icon,label,id)
-	var idx = get_fs_context_menu().get_item_index(id)
+	var idx = id-1#get_fs_context_menu().get_item_index(id)
 	get_fs_context_menu().set_item_metadata(idx,meta)
 	return idx
 
@@ -165,7 +166,7 @@ func add_fs_context_menu_icon_item(label:String, icon:Texture2D, meta=null) -> i
 func add_fs_context_menu_check_item(label:String, meta=null) -> int:
 	var id = _get_id_for_new_fs_context_item()
 	get_fs_context_menu().add_check_item(label,id)
-	var idx = get_fs_context_menu().get_item_index(id)
+	var idx = id-1#get_fs_context_menu().get_item_index(id)
 	get_fs_context_menu().set_item_metadata(idx,meta)
 	return idx
 
