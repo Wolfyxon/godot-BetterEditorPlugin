@@ -56,9 +56,7 @@ class PopupMenuItem:
 	func get_metadata(): return popup_menu.get_item_metadata(index)
 	func get_string_id() -> String:
 		var meta = get_metadata()
-		if !meta or !typeof(meta) == TYPE_DICTIONARY:
-			push_error("Item metadata does not contain the required data")
-			return ""
+		if !meta or !typeof(meta) == TYPE_DICTIONARY: return ""
 		return meta["strID"]
 	
 # ============== Private methods ============== #
