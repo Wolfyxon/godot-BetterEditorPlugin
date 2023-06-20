@@ -1,3 +1,6 @@
+# This example plugin is a part of https://github.com/Wolfyxon/godot-BetterEditorPlugin/
+# and it requires the BetterEditorPlugin.gd file to be in the project. 
+
 @tool
 extends BetterEditorPlugin
 
