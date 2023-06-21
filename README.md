@@ -32,3 +32,10 @@ All methods are explained. In the script editor on the top right corner press **
 
 ## Disclaimer
 This class might stop working properly in a Godot update changes the node structure of the editor since it uses methods that are not in the official API by manually finding and modifying nodes. This class is also currently work-in-progress.
+
+## TODO
+- Getting editor 2D and 3D camera [urgent]
+- Node inspector manipulation
+- Node inspector context menu manipulation
+- Property change detection
+
