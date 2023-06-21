@@ -67,6 +67,7 @@ class PopupMenuItem:
 		var meta = get_metadata()
 		if meta==null or !typeof(meta) == TYPE_DICTIONARY: return ""
 		return meta["strID"]
+	
 	## Sets the item text
 	func set_text(text:String): popup_menu.set_item_text(index,text)
 	## Sets the item icon texture
