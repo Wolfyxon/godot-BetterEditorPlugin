@@ -59,6 +59,14 @@ class PopupMenuItem:
 		if meta==null or !typeof(meta) == TYPE_DICTIONARY: return ""
 		return meta["strID"]
 	
+	func set_text(text:String): popup_menu.set_item_text(index,text)
+	func set_icon(icon:Texture2D): popup_menu.set_item_icon(index,icon)
+	func set_metadata(meta): popup_menu.set_item_metadata(index,meta)
+	func set_id(id:int): popup_menu.set_item_id(index, id)
+	func set_disabled(disabled:bool): popup_menu.set_item_disabled(index,disabled)
+	func disable(): set_disabled(true)
+	func enable(): set_disabled(false)
+	
 # ============== Private methods ============== #
 # Please do not overwrite these methods or this class won't work properly
 
