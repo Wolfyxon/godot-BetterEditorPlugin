@@ -138,7 +138,15 @@ func _fs_context_menu_index_clicked(index:int):
 func _fs_context_menu_id_clicked(id:int):
 	filesystem_context_menu_id_clicked.emit(id)
 
+func _popup_menu_index_clicked_forward(index:int, popupmenu:PopupMenu, callable:Callable):
+	var item = PopupMenuItem.new(popupmenu, index)
+	callable.call(item)
+
 # ============== User methods ============== #
+
+## Converts a [PopupMenu] index_pressed signal result into a [PopupMenuItem] with all required info then calls the specified function.
+func connect_popup_menu_item_signal(popupmenu:PopupMenu, callable:Callable):
+	popupmenu.index_pressed.connect( _popup_menu_index_clicked_forward.bind(popupmenu, callable) )
 
 ## Returns the current context (right click) menu in the FileSystem dock.
 func get_fs_context_menu() -> PopupMenu:
