@@ -21,8 +21,6 @@ signal filesystem_context_menu_closed
 signal filesystem_dir_context_menu_opened
 signal filesystem_file_context_menu_opened
 signal filesystem_context_menu_item_clicked(item:PopupMenuItem)
-signal filesystem_context_menu_index_clicked(index:int)
-signal filesystem_context_menu_id_clicked(id:int)
 
 enum PATH_TYPE {Nonexistent, File, Directory}
 
@@ -95,8 +93,7 @@ func _notification(what):
 		get_fs_context_menu()
 		fs_context_menu.about_to_popup.connect(_fs_context_menu_opened)
 		fs_context_menu.popup_hide.connect(_fs_context_menu_closed)
-		fs_context_menu.index_pressed.connect(_fs_context_menu_index_clicked)
-		fs_context_menu.id_pressed.connect(_fs_context_menu_id_clicked)
+		forward_popup_menu_item_signal(get_fs_context_menu(),filesystem_context_menu_item_clicked)
 		
 	
 	if what == NOTIFICATION_EXIT_TREE:
@@ -129,14 +126,6 @@ func _fs_context_menu_opened():
 
 func _fs_context_menu_closed():
 	filesystem_context_menu_closed.emit()
-
-func _fs_context_menu_index_clicked(index:int):
-	filesystem_context_menu_index_clicked.emit(index)
-	var item = PopupMenuItem.new(get_fs_context_menu(),index)
-	if item: filesystem_context_menu_item_clicked.emit(item)
-
-func _fs_context_menu_id_clicked(id:int):
-	filesystem_context_menu_id_clicked.emit(id)
 
 func _popup_menu_index_clicked_func_forward(index:int, popupmenu:PopupMenu, callable:Callable):
 	var item = PopupMenuItem.new(popupmenu, index)
