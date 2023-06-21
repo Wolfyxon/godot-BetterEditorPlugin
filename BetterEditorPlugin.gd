@@ -40,31 +40,46 @@ var registered_fs_file_options = [
 #		icon: Texture2D or null
 #	}
 ]
-
+## A class for easier dealing with items in [PopupMenu]. 
 class PopupMenuItem:
+	
+	## The source [PopupMenu]
 	var popup_menu:PopupMenu
+	## Item index
 	var index:int
 
 	func _init(source:PopupMenu,index:int):
 		popup_menu = source
 		self.index = index
 	
+	## Returns the item ID at the current index
 	func get_id() -> int: return popup_menu.get_item_id(index)
+	## Returns the item index
 	func get_index() -> int: return index
+	## Returns the item text
 	func get_text() -> String: return popup_menu.get_item_text(index)
+	## Returns the item icon texture (if present)
 	func get_icon() -> Texture2D: return popup_menu.get_item_icon(index)
+	## Returns the item metadata (if present)
 	func get_metadata(): return popup_menu.get_item_metadata(index)
+	## Returns the item String ID used for identifying the options. Applies only to custom options.
 	func get_string_id() -> String:
 		var meta = get_metadata()
 		if meta==null or !typeof(meta) == TYPE_DICTIONARY: return ""
 		return meta["strID"]
-	
+	## Sets the item text
 	func set_text(text:String): popup_menu.set_item_text(index,text)
+	## Sets the item icon texture
 	func set_icon(icon:Texture2D): popup_menu.set_item_icon(index,icon)
+	## Sets item metadata. WARNING: this might remove the String ID
 	func set_metadata(meta): popup_menu.set_item_metadata(index,meta)
+	## Sets the item ID. Proceed with caution as this often causes issues
 	func set_id(id:int): popup_menu.set_item_id(index, id)
+	## Sets if the item is disabled or not
 	func set_disabled(disabled:bool): popup_menu.set_item_disabled(index,disabled)
+	## Disables the item
 	func disable(): set_disabled(true)
+	## Enables the item
 	func enable(): set_disabled(false)
 	
 # ============== Private methods ============== #
