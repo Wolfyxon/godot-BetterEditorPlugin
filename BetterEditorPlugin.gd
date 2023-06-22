@@ -249,6 +249,10 @@ func is_fs_selected_path_file_or_dir() -> PATH_TYPE:
 	if path == "": return PATH_TYPE.Nonexistent
 	return is_file_or_dir(path)
 
+## Returns a unexposed class SceneTreeDock. 
+func get_scene_tree_dock() -> VBoxContainer:
+	return get_first_descendant_by_class_name(get_editor_interface().get_base_control(),"SceneTreeDock")
+
 # ============== Static methods ============== #
 
 ## Returns a String type name of a TYPE enum. Example [code]print( type_name( typeof("hello") ) )[/code] will print [code]String[/code]
