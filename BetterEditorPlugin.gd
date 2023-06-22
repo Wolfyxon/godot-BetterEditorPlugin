@@ -105,10 +105,15 @@ func _notification(what):
 		get_fs_context_menu()
 		fs_context_menu.about_to_popup.connect(_fs_context_menu_opened)
 		forward_popup_menu_item_signal(get_fs_context_menu(),filesystem_context_menu_item_clicked)
+		
 		forward_popup_menu_item_signal(get_scene_tree_context_menu(),scene_tree_dock_context_menu_item_clicked)
+		get_scene_tree_context_menu().about_to_popup.connect(_scene_tree_context_menu_opened)
 	
 	if what == NOTIFICATION_EXIT_TREE:
 		pass
+
+func _scene_tree_context_menu_opened():
+	pass
 
 func _allow_file_option(file_names:PackedStringArray,allowed_types:PackedStringArray) -> bool:
 	if allowed_types.size()==0: return true
