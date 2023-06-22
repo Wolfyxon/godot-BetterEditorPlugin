@@ -31,7 +31,7 @@ Feel free to suggest anything you'd like to see!
 All methods are explained. In the script editor on the top right corner press **Search Help**, find `BetterEditorPlugin` then click on it and you will see the full documentation of this class.
 
 ## Disclaimer
-This class might stop working properly in a Godot update changes the node structure of the editor since it uses methods that are not in the official API by manually finding and modifying nodes. This class is also currently work-in-progress.
+This class might stop working properly if a Godot update changes the node structure of the editor since it uses methods that are not in the official API by manually finding and modifying nodes. This class is also currently work-in-progress.
 
 ## TODO
 - Getting editor 2D and 3D camera [urgent]
