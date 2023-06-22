@@ -30,18 +30,21 @@ var registered_fs_dir_options = [
 #	{
 #		label: "option label"
 #		icon: Texture2D or null
+#		strID: "User specified or generated option ID"
 #	}
 ]
 var registered_fs_file_options = [
 #	{
 #		label: "option label"
 #		icon: Texture2D or null
+#		strID: "User specified or generated option ID"
 #	}
 ]
 var registered_node_options = [
 #	{
 #		label: "option label"
 #		icon: Texture2D or null
+#		strID: "User specified or generated option ID"
 #		allowed_classes: [] (allows all if empty)
 #	}
 ]
