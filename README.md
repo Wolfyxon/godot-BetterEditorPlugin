@@ -36,6 +36,5 @@ This class might stop working properly if a Godot update changes the node struct
 
 ## TODO
 - Getting editor 2D and 3D camera [urgent]
-- Node tree list manipulation
 - Property change detection
 
