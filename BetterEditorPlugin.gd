@@ -253,6 +253,10 @@ func is_fs_selected_path_file_or_dir() -> PATH_TYPE:
 func get_scene_tree_dock() -> VBoxContainer:
 	return get_first_descendant_by_class_name(get_editor_interface().get_base_control(),"SceneTreeDock")
 
+## Returns a context (right click) [PopupMenu] of the SceneTreeDock
+func get_scene_tree_context_menu() -> PopupMenu:
+	return get_scene_tree_dock().get_child(15)
+
 # ============== Static methods ============== #
 
 ## Returns a String type name of a TYPE enum. Example [code]print( type_name( typeof("hello") ) )[/code] will print [code]String[/code]
