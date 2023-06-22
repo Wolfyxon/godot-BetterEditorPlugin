@@ -134,13 +134,13 @@ func _fs_context_menu_opened():
 		
 	if is_fs_selected_path_file_or_dir() == PATH_TYPE.File:
 		filesystem_file_context_menu_opened.emit()
-		
 		for i in registered_fs_file_options:
-			var label = i["label"]
-			if ("icon" in i) and i["icon"]:
-				add_fs_context_menu_icon_item(i["label"],i["icon"],{"strID":i["strID"]})
-			else:
-				add_fs_context_menu_item(i["label"],{"strID":i["strID"]})
+			if _allow_file_option(get_fs_selected_names(),i["allowed_types"]):
+				var label = i["label"]
+				if ("icon" in i) and i["icon"]:
+					add_fs_context_menu_icon_item(i["label"],i["icon"],{"strID":i["strID"]})
+				else:
+					add_fs_context_menu_item(i["label"],{"strID":i["strID"]})
 
 func _popup_menu_index_clicked_func_forward(index:int, popupmenu:PopupMenu, callable:Callable):
 	var item = PopupMenuItem.new(popupmenu, index)
