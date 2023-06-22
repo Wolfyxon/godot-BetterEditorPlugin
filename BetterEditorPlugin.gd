@@ -282,6 +282,10 @@ func get_scene_tree_dock() -> VBoxContainer:
 func get_scene_tree_context_menu() -> PopupMenu:
 	return get_scene_tree_dock().get_child(15)
 
+## Returns the SceneTreeDock's node [Tree]
+func get_scene_node_tree() -> Tree:
+	return get_first_child_by_class_name(get_first_descendant_by_class_name(get_scene_tree_dock(),"SceneTreeEditor"),"Tree")
+
 func register_node_context_option(label:String, id:String, icon:Texture2D=null, allowed_classes:Array=[]):
 	_registered_node_options.append({
 		"label": label,
