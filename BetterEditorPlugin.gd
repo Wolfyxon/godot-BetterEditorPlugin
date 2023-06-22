@@ -110,6 +110,7 @@ func _notification(what):
 	if what == NOTIFICATION_EXIT_TREE:
 		pass
 
+## Manually specified IDs sometimes cause problems such as the wrong option being detected as pressed. This uses the index.
 func _get_id_for_new_popup_menu_item(popupmenu:PopupMenu) -> int:
 	return popupmenu.item_count+1
 
