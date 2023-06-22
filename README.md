@@ -2,6 +2,7 @@
 A upgraded API for Godot editor plugins made in pure GDScript.  
 Supports Godot version 4.0 and above.
 
+Make sure to read the [wiki](https://github.com/Wolfyxon/godot-BetterEditorPlugin/wiki)
 ## Installation
 Clone this repository or download `BetterEditorPlugin.gd` anywhere in your project, you may need to restart Godot but it's rarely required. 
 Then if you want to use it, replace in your plugin script `extends EditorPlugin` with `extends BetterEditorPlugin`. This is how the top your plugin script should look like:  
