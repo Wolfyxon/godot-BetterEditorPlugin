@@ -25,6 +25,7 @@ signal scene_tree_dock_context_menu_item_clicked(item:PopupMenuItem)
 enum PATH_TYPE {Nonexistent, File, Directory}
 
 var fs_context_menu:PopupMenu
+var scene_tree_dock:VBoxContainer
 
 var _registered_fs_dir_options = [
 #	{
@@ -103,6 +104,8 @@ class PopupMenuItem:
 func _notification(what):
 	if what == NOTIFICATION_ENTER_TREE:
 		get_fs_context_menu()
+		get_scene_tree_dock()
+		
 		fs_context_menu.about_to_popup.connect(_fs_context_menu_opened)
 		forward_popup_menu_item_signal(get_fs_context_menu(),filesystem_context_menu_item_clicked)
 		
@@ -296,7 +299,10 @@ func is_fs_selected_path_file_or_dir() -> PATH_TYPE:
 
 ## Returns a unexposed class SceneTreeDock. 
 func get_scene_tree_dock() -> VBoxContainer:
-	return get_first_descendant_by_class_name(get_editor_interface().get_base_control(),"SceneTreeDock")
+	if scene_tree_dock: return scene_tree_dock
+	var d = get_first_descendant_by_class_name(get_editor_interface().get_base_control(),"SceneTreeDock")
+	scene_tree_dock = d
+	return d
 
 ## Returns a context (right click) [PopupMenu] of the SceneTreeDock
 func get_scene_tree_context_menu() -> PopupMenu:
