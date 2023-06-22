@@ -238,7 +238,7 @@ func get_fs_selected_items() -> Array[TreeItem]:
 	return get_selected_tree_items(get_fs_tree())
 
 ## Returns the name of the currently selected file or directory in the FileSystem dock
-func get_fs_selected_item_name() -> String:
+func get_fs_selected_name() -> String:
 	var item:TreeItem = get_fs_selected_item()
 	if !item: return ""
 	return item.get_text(0)
