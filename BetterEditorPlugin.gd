@@ -93,7 +93,7 @@ func _notification(what):
 		get_fs_context_menu()
 		fs_context_menu.about_to_popup.connect(_fs_context_menu_opened)
 		forward_popup_menu_item_signal(get_fs_context_menu(),filesystem_context_menu_item_clicked)
-		
+		forward_popup_menu_item_signal(get_scene_tree_context_menu(),scene_tree_dock_context_menu_item_clicked)
 	
 	if what == NOTIFICATION_EXIT_TREE:
 		pass
