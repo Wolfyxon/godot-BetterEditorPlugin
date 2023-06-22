@@ -110,8 +110,8 @@ func _notification(what):
 	if what == NOTIFICATION_EXIT_TREE:
 		pass
 
-func _get_id_for_new_fs_context_item() -> int:
-	return get_fs_context_menu().item_count+1
+func _get_id_for_new_popup_menu_item(popupmenu:PopupMenu) -> int:
+	return popupmenu.item_count+1
 
 func _allow_file_option(file_names:PackedStringArray,allowed_types:PackedStringArray) -> bool:
 	if allowed_types.size()==0: return true
@@ -202,7 +202,7 @@ func register_fs_file_context_option(label:String, id:String="", icon:Texture2D=
 
 ## Adds a button to the FileSystem dock context (right click) menu. Returns index of the created item
 func add_fs_context_menu_item(label:String,meta=null) -> int:
-	var id = _get_id_for_new_fs_context_item()
+	var id = _get_id_for_new_popup_menu_item(get_fs_context_menu())
 	get_fs_context_menu().add_item(label,id)
 	var idx = id-1#get_fs_context_menu().get_item_index(id)
 	get_fs_context_menu().set_item_metadata(idx,meta)
@@ -210,7 +210,7 @@ func add_fs_context_menu_item(label:String,meta=null) -> int:
 
 ## Adds a button with an icon to the FileSystem dock context (right click) menu. Returns index of the created item
 func add_fs_context_menu_icon_item(label:String, icon:Texture2D, meta=null) -> int:
-	var id = _get_id_for_new_fs_context_item()
+	var id = _get_id_for_new_popup_menu_item(get_fs_context_menu())
 	get_fs_context_menu().add_icon_item(icon,label,id)
 	var idx = id-1#get_fs_context_menu().get_item_index(id)
 	get_fs_context_menu().set_item_metadata(idx,meta)
@@ -218,7 +218,7 @@ func add_fs_context_menu_icon_item(label:String, icon:Texture2D, meta=null) -> i
 
 ## Adds a check button to the FileSystem dock context (right click) menu. Returns index of the created item
 func add_fs_context_menu_check_item(label:String, meta=null) -> int:
-	var id = _get_id_for_new_fs_context_item()
+	var id = _get_id_for_new_popup_menu_item(get_fs_context_menu())
 	get_fs_context_menu().add_check_item(label,id)
 	var idx = id-1#get_fs_context_menu().get_item_index(id)
 	get_fs_context_menu().set_item_metadata(idx,meta)
@@ -226,7 +226,7 @@ func add_fs_context_menu_check_item(label:String, meta=null) -> int:
 
 ## Adds a check button with an icon to the FileSystem dock context (right click) menu
 func add_fs_context_menu_icon_check_item(label:String, icon:Texture2D):
-	get_fs_context_menu().add_icon_check_item(icon, label, _get_id_for_new_fs_context_item())
+	get_fs_context_menu().add_icon_check_item(icon, label, _get_id_for_new_popup_menu_item(get_fs_context_menu()))
 
 ## Gets the file tree in the FileSystem dock.
 func get_fs_tree() -> Tree:
