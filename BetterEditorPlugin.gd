@@ -286,6 +286,33 @@ func get_scene_tree_context_menu() -> PopupMenu:
 func get_scene_node_tree() -> Tree:
 	return get_first_child_by_class_name(get_first_descendant_by_class_name(get_scene_tree_dock(),"SceneTreeEditor"),"Tree")
 
+## Returns the path of the first selected [Node]
+func get_selected_node_path() -> NodePath:
+	var sel = get_scene_node_tree().get_selected()
+	if not sel: return ""
+	return sel.get_metadata(0)
+
+## Returns the first selected [Node]
+func get_selected_node() -> Node:
+	return get_node_or_null(get_selected_node_path())
+
+## Returns paths of the selected [Node]s
+func get_selected_node_paths() -> Array[NodePath]:
+	var res:Array[NodePath] = []
+	for i in get_selected_tree_items(get_scene_node_tree()):
+		res.append(i.get_metadata(0))
+		
+	return res
+	
+## Returns the selected [Node]s
+func get_selected_nodes() -> Array[Node]:
+	var res:Array[Node] = []
+	for i in get_selected_node_paths():
+		var n = get_node_or_null(i)
+		if n: res.append(n)
+
+	return res
+
 func register_node_context_option(label:String, id:String, icon:Texture2D=null, allowed_classes:Array=[]):
 	_registered_node_options.append({
 		"label": label,
