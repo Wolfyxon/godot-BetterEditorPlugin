@@ -20,7 +20,7 @@ If you still want to ship it inside your plugin, rename this class to example: `
 Please note that more features will appear over time.  
 - manipulating items in the FileSystem dock
 - getting selected file and directory paths in the FileSystem dock
-- manipulating (includes custom options) context menu in the FileSystem dock
+- Custom context menu options for FileSystem dock and Node Tree
 - Many useful static utility functions that might also be helpful outisde plugins
 
 Feel free to suggest anything you'd like to see!
