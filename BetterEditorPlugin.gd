@@ -26,14 +26,14 @@ enum PATH_TYPE {Nonexistent, File, Directory}
 
 var fs_context_menu:PopupMenu
 
-var registered_fs_dir_options = [
+var _registered_fs_dir_options = [
 #	{
 #		label: "option label"
 #		icon: Texture2D or null
 #		strID: "User specified or generated option ID"
 #	}
 ]
-var registered_fs_file_options = [
+var _registered_fs_file_options = [
 #	{
 #		label: "option label"
 #		icon: Texture2D or null
@@ -41,7 +41,7 @@ var registered_fs_file_options = [
 #		allowed_types: ["allowed","file","extensions.","example:","png"] (allows all if empty)
 #	}
 ]
-var registered_node_options = [
+var _registered_node_options = [
 #	{
 #		label: "option label"
 #		icon: Texture2D or null
@@ -125,7 +125,7 @@ func _fs_context_menu_opened():
 
 	if is_fs_selected_path_file_or_dir() == PATH_TYPE.Directory:
 		filesystem_dir_context_menu_opened.emit()
-		for i in registered_fs_dir_options:
+		for i in _registered_fs_dir_options:
 			var label = i["label"]
 			if ("icon" in i) and i["icon"]:
 				add_fs_context_menu_icon_item(i["label"],i["icon"],{"strID":i["strID"]})
@@ -134,7 +134,7 @@ func _fs_context_menu_opened():
 		
 	if is_fs_selected_path_file_or_dir() == PATH_TYPE.File:
 		filesystem_file_context_menu_opened.emit()
-		for i in registered_fs_file_options:
+		for i in _registered_fs_file_options:
 			if _allow_file_option(get_fs_selected_names(),i["allowed_types"]):
 				var label = i["label"]
 				if ("icon" in i) and i["icon"]:
@@ -180,7 +180,7 @@ func get_fs_context_menu() -> PopupMenu:
 ## Permanentaly (unless the plugin is disabled) adds an option to the directory context (right click) menu in the FileSystem dock
 func register_fs_dir_context_option(label:String, id:String="", icon:Texture2D=null):
 	if id == "": id = label
-	registered_fs_dir_options.append(
+	_registered_fs_dir_options.append(
 		{
 			"label": label,
 			"icon": icon,
@@ -191,7 +191,7 @@ func register_fs_dir_context_option(label:String, id:String="", icon:Texture2D=n
 ## Permanentaly (unless the plugin is disabled) adds an option to the file context (right click) menu in the FileSystem dock
 func register_fs_file_context_option(label:String, id:String="", icon:Texture2D=null, allowed_types:PackedStringArray=[]):
 	if id == "": id = label
-	registered_fs_file_options.append(
+	_registered_fs_file_options.append(
 		{
 			"label": label,
 			"icon": icon,
@@ -281,7 +281,7 @@ func get_scene_tree_context_menu() -> PopupMenu:
 	return get_scene_tree_dock().get_child(15)
 
 func register_node_context_option(label:String, id:String, icon:Texture2D=null, allowed_classes:Array=[]):
-	registered_node_options.append({
+	_registered_node_options.append({
 		"label": label,
 		"strID": id,
 		"icon": icon,
