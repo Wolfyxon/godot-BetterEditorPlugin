@@ -420,3 +420,11 @@ static func is_file_or_dir(path:String) -> PATH_TYPE:
 	if file_exists(path): return PATH_TYPE.File
 	if dir_exists(path): return PATH_TYPE.Directory
 	return PATH_TYPE.Nonexistent
+
+## Returns a file extension from the specified file name
+static func get_file_extension(file_name:String) -> String:
+	var split = file_name.split(".")
+	if split.size()<2: return file_name
+	return split[split.size()-1]
+	
+	
