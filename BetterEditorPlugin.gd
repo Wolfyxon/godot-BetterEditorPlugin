@@ -16,8 +16,6 @@
 extends EditorPlugin
 class_name BetterEditorPlugin
 
-signal filesystem_context_menu_opened
-signal filesystem_context_menu_closed
 signal filesystem_dir_context_menu_opened
 signal filesystem_file_context_menu_opened
 signal filesystem_context_menu_item_clicked(item:PopupMenuItem)
@@ -96,7 +94,6 @@ func _notification(what):
 	if what == NOTIFICATION_ENTER_TREE:
 		get_fs_context_menu()
 		fs_context_menu.about_to_popup.connect(_fs_context_menu_opened)
-		fs_context_menu.popup_hide.connect(_fs_context_menu_closed)
 		forward_popup_menu_item_signal(get_fs_context_menu(),filesystem_context_menu_item_clicked)
 		
 	
@@ -107,8 +104,6 @@ func _get_id_for_new_fs_context_item() -> int:
 	return get_fs_context_menu().item_count+1
 
 func _fs_context_menu_opened():
-	filesystem_context_menu_opened.emit()
-
 
 	if is_fs_selected_path_file_or_dir() == PATH_TYPE.Directory:
 		filesystem_dir_context_menu_opened.emit()
@@ -127,9 +122,6 @@ func _fs_context_menu_opened():
 				add_fs_context_menu_icon_item(i["label"],i["icon"],{"strID":i["strID"]})
 			else:
 				add_fs_context_menu_item(i["label"],{"strID":i["strID"]})
-
-func _fs_context_menu_closed():
-	filesystem_context_menu_closed.emit()
 
 func _popup_menu_index_clicked_func_forward(index:int, popupmenu:PopupMenu, callable:Callable):
 	var item = PopupMenuItem.new(popupmenu, index)
