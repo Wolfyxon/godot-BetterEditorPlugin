@@ -139,7 +139,14 @@ func _popup_menu_index_clicked_signal_forward(index:int, popupmenu:PopupMenu, si
 	var item = PopupMenuItem.new(popupmenu, index)
 	signal_.emit(item)
 
+func _signal_forward(source:Signal, target:Signal):
+	target.emit()
+
 # ============== User methods ============== #
+
+## Emits another signal when a specified signal is emitted. Currently works only with signals without any arguments
+func forward_signal(source_signal:Signal, target_signal:Signal):
+	source_signal.connect(_signal_forward.bind(target_signal))
 
 ## Converts a [PopupMenu] index_pressed signal result into a [PopupMenuItem] with all required info then calls the specified function.
 func connect_popup_menu_item_signal(popupmenu:PopupMenu, callable:Callable):
