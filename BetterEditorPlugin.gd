@@ -38,6 +38,14 @@ var registered_fs_file_options = [
 #		icon: Texture2D or null
 #	}
 ]
+var registered_node_options = [
+#	{
+#		label: "option label"
+#		icon: Texture2D or null
+#		allowed_classes: [] (allows all if empty)
+#	}
+]
+
 ## A class for easier dealing with items in [PopupMenu]. 
 class PopupMenuItem:
 	
@@ -257,6 +265,14 @@ func get_scene_tree_dock() -> VBoxContainer:
 ## Returns a context (right click) [PopupMenu] of the SceneTreeDock
 func get_scene_tree_context_menu() -> PopupMenu:
 	return get_scene_tree_dock().get_child(15)
+
+func register_node_context_option(label:String, id:String, icon:Texture2D=null, allowed_classes:Array=[]):
+	registered_node_options.append({
+		"label": label,
+		"strID": id,
+		"icon": icon,
+		"allowed_classes": allowed_classes
+	})
 
 # ============== Static methods ============== #
 
