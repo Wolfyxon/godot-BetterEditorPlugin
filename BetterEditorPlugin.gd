@@ -112,8 +112,28 @@ func _notification(what):
 	if what == NOTIFICATION_EXIT_TREE:
 		pass
 
+func _allow_node_option(nodes:Array[Node], allowed_classes:Array, strict:=false) -> bool:
+	if allowed_classes.size()==0: return true
+	for i in nodes:
+		if strict and !(i.get_class() in allowed_classes): return false
+		if !strict:
+			var allow = false
+			for c in allowed_classes:
+				if i.is_class(c):
+					allow = true
+					break
+			if !allow: return false
+			
+	return true
+
 func _scene_tree_context_menu_opened():
-	pass
+	for i in _registered_node_options:
+		if _allow_node_option(get_selected_nodes(), i["allowed_classes"]):
+			if ("icon" in i) and i["icon"]:
+				add_node_context_icon_option(i["label"],i["icon"],{"strID":i["strID"]})
+			else:
+				add_node_context_option(i["label"],{"strID":i["strID"]})
+	
 
 func _allow_file_option(file_names:PackedStringArray,allowed_types:PackedStringArray) -> bool:
 	if allowed_types.size()==0: return true
