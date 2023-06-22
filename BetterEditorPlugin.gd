@@ -20,8 +20,6 @@ signal filesystem_dir_context_menu_opened
 signal filesystem_file_context_menu_opened
 signal filesystem_context_menu_item_clicked(item:PopupMenuItem)
 
-signal scene_tree_dock_context_menu_opened
-signal scene_tree_dock_context_menu_closed
 signal scene_tree_dock_context_menu_item_clicked(item:PopupMenuItem)
 
 enum PATH_TYPE {Nonexistent, File, Directory}
