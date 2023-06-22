@@ -109,8 +109,8 @@ func _notification(what):
 		fs_context_menu.about_to_popup.connect(_fs_context_menu_opened)
 		forward_popup_menu_item_signal(get_fs_context_menu(),filesystem_context_menu_item_clicked)
 		
-		forward_popup_menu_item_signal(get_scene_tree_context_menu(),scene_tree_dock_context_menu_item_clicked)
-		get_scene_tree_context_menu().about_to_popup.connect(_scene_tree_context_menu_opened)
+		forward_popup_menu_item_signal(get_node_context_menu(),scene_tree_dock_context_menu_item_clicked)
+		get_node_context_menu().about_to_popup.connect(_scene_tree_context_menu_opened)
 	
 	if what == NOTIFICATION_EXIT_TREE:
 		pass
@@ -305,7 +305,7 @@ func get_scene_tree_dock() -> VBoxContainer:
 	return d
 
 ## Returns a context (right click) [PopupMenu] of the SceneTreeDock
-func get_scene_tree_context_menu() -> PopupMenu:
+func get_node_context_menu() -> PopupMenu:
 	return get_scene_tree_dock().get_child(15)
 
 ## Returns the SceneTreeDock's node [Tree]
@@ -349,34 +349,34 @@ func register_node_context_option(label:String, id:String, icon:Texture2D=null, 
 
 ## Adds a button to the Scene dock context (right click) menu. Returns index of the created item
 func add_node_context_option(label:String, meta=null) -> int:
-	var id = get_id_for_new_popup_menu_item(get_scene_tree_context_menu())
+	var id = get_id_for_new_popup_menu_item(get_node_context_menu())
 	var idx = id - 1
-	get_scene_tree_context_menu().add_item(label, id)
-	get_scene_tree_context_menu().set_item_metadata(idx, meta)
+	get_node_context_menu().add_item(label, id)
+	get_node_context_menu().set_item_metadata(idx, meta)
 	return idx
 
 ## Adds a button with an icon to the Scene dock context (right click) menu. Returns index of the created item
 func add_node_context_icon_option(label:String, icon:Texture2D, meta=null) -> int:
-	var id = get_id_for_new_popup_menu_item(get_scene_tree_context_menu())
+	var id = get_id_for_new_popup_menu_item(get_node_context_menu())
 	var idx = id - 1
-	get_scene_tree_context_menu().add_icon_item(icon, label, id)
-	get_scene_tree_context_menu().set_item_metadata(idx, meta)
+	get_node_context_menu().add_icon_item(icon, label, id)
+	get_node_context_menu().set_item_metadata(idx, meta)
 	return idx
 
 ## Adds a check button to the Scene dock context (right click) menu. Returns index of the created item
 func add_node_context_check_option(label:String, meta=null) -> int:
-	var id = get_id_for_new_popup_menu_item(get_scene_tree_context_menu())
+	var id = get_id_for_new_popup_menu_item(get_node_context_menu())
 	var idx = id - 1
-	get_scene_tree_context_menu().add_check_item(label, id)
-	get_scene_tree_context_menu().set_item_metadata(idx, meta)
+	get_node_context_menu().add_check_item(label, id)
+	get_node_context_menu().set_item_metadata(idx, meta)
 	return idx
 
 ## Adds a check button with an icon to the Scene dock context (right click) menu
 func add_node_context_icon_check_option(label:String, icon:Texture2D, meta=null) -> int:
-	var id = get_id_for_new_popup_menu_item(get_scene_tree_context_menu())
+	var id = get_id_for_new_popup_menu_item(get_node_context_menu())
 	var idx = id - 1
-	get_scene_tree_context_menu().add_icon_check_item(icon, label, id)
-	get_scene_tree_context_menu().set_item_metadata(idx, meta)
+	get_node_context_menu().add_icon_check_item(icon, label, id)
+	get_node_context_menu().set_item_metadata(idx, meta)
 	return idx
 
 # ============== Static methods ============== #
