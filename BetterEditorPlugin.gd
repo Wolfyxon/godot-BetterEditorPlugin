@@ -285,6 +285,38 @@ func register_node_context_option(label:String, id:String, icon:Texture2D=null, 
 		"allowed_classes": allowed_classes
 	})
 
+## Adds a button to the Scene dock context (right click) menu. Returns index of the created item
+func add_node_context_option(label:String, meta=null) -> int:
+	var id = get_id_for_new_popup_menu_item(get_scene_tree_context_menu())
+	var idx = id - 1
+	get_scene_tree_context_menu().add_item(label, id)
+	get_scene_tree_context_menu().set_item_metadata(idx, meta)
+	return idx
+
+## Adds a button with an icon to the Scene dock context (right click) menu. Returns index of the created item
+func add_node_context_icon_option(label:String, icon:Texture2D, meta=null) -> int:
+	var id = get_id_for_new_popup_menu_item(get_scene_tree_context_menu())
+	var idx = id - 1
+	get_scene_tree_context_menu().add_icon_item(icon, label, id)
+	get_scene_tree_context_menu().set_item_metadata(idx, meta)
+	return idx
+
+## Adds a check button to the Scene dock context (right click) menu. Returns index of the created item
+func add_node_context_check_option(label:String, meta=null) -> int:
+	var id = get_id_for_new_popup_menu_item(get_scene_tree_context_menu())
+	var idx = id - 1
+	get_scene_tree_context_menu().add_check_item(label, id)
+	get_scene_tree_context_menu().set_item_metadata(idx, meta)
+	return idx
+
+## Adds a check button with an icon to the Scene dock context (right click) menu
+func add_node_context_icon_check_option(label:String, icon:Texture2D, meta=null) -> int:
+	var id = get_id_for_new_popup_menu_item(get_scene_tree_context_menu())
+	var idx = id - 1
+	get_scene_tree_context_menu().add_icon_check_item(icon, label, id)
+	get_scene_tree_context_menu().set_item_metadata(idx, meta)
+	return idx
+
 # ============== Static methods ============== #
 
 ## Manually specified IDs sometimes cause problems such as the wrong option being detected as pressed. This uses the index.
