@@ -113,6 +113,14 @@ func _notification(what):
 func _get_id_for_new_fs_context_item() -> int:
 	return get_fs_context_menu().item_count+1
 
+func _allow_file_option(file_names:PackedStringArray,allowed_types:PackedStringArray) -> bool:
+	if allowed_types.size()==0: return true
+	
+	for i in file_names:
+		if !( get_file_extension(i) in allowed_types ): return false
+	
+	return true
+
 func _fs_context_menu_opened():
 
 	if is_fs_selected_path_file_or_dir() == PATH_TYPE.Directory:
@@ -126,6 +134,7 @@ func _fs_context_menu_opened():
 		
 	if is_fs_selected_path_file_or_dir() == PATH_TYPE.File:
 		filesystem_file_context_menu_opened.emit()
+		
 		for i in registered_fs_file_options:
 			var label = i["label"]
 			if ("icon" in i) and i["icon"]:
