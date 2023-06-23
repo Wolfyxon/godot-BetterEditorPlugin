@@ -35,6 +35,5 @@ All methods are explained. In the script editor on the top right corner press **
 This class might stop working properly if a Godot update changes the node structure of the editor since it uses methods that are not in the official API by manually finding and modifying nodes. This class is also currently work-in-progress.
 
 ## TODO
-- Getting editor 2D [urgent]
-- Property change detection
+- Full property change detection
 
