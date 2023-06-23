@@ -381,7 +381,7 @@ func add_node_context_icon_check_option(label:String, icon:Texture2D, meta=null)
 	get_node_context_menu().set_item_metadata(idx, meta)
 	return idx
 
-## Returns the editor's [Camera3D]
+## Returns the editor's [Camera3D]. Unfortunately, getting the editor's [Camera2D] isn't possible because it doesn't even use it.
 func get_editor_3d_camera() -> Camera3D:
 	if editor_3d_cam: return editor_3d_cam
 	var scene = get_editor_interface().get_edited_scene_root()
