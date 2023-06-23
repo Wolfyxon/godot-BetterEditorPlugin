@@ -379,7 +379,7 @@ func add_node_context_icon_check_option(label:String, icon:Texture2D, meta=null)
 	get_node_context_menu().set_item_metadata(idx, meta)
 	return idx
 
-## Returns the editor [Camera3D]
+## Returns the editor's [Camera3D]
 func get_editor_3d_camera() -> Camera3D:
 	var scene = get_editor_interface().get_edited_scene_root()
 	for i in get_descendants_by_class_name(get_editor_interface().get_base_control(),"Camera3D"):
