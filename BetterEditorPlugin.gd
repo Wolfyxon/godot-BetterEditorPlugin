@@ -26,6 +26,7 @@ enum PATH_TYPE {Nonexistent, File, Directory}
 
 var fs_context_menu:PopupMenu
 var scene_tree_dock:VBoxContainer
+var editor_3d_cam:Camera3D
 
 var _registered_fs_dir_options = [
 #	{
@@ -103,6 +104,7 @@ class PopupMenuItem:
 # _notification will always fire no matter if it's overwritten. 
 func _notification(what):
 	if what == NOTIFICATION_ENTER_TREE:
+		get_editor_3d_camera()
 		get_fs_context_menu()
 		get_scene_tree_dock()
 		
@@ -381,10 +383,15 @@ func add_node_context_icon_check_option(label:String, icon:Texture2D, meta=null)
 
 ## Returns the editor's [Camera3D]
 func get_editor_3d_camera() -> Camera3D:
+	if editor_3d_cam: return editor_3d_cam
 	var scene = get_editor_interface().get_edited_scene_root()
+	var cam:Camera3D
 	for i in get_descendants_by_class_name(get_editor_interface().get_base_control(),"Camera3D"):
-		if !scene or !(i in get_descendants(scene)): return i
-	return null
+		if !scene or !(i in get_descendants(scene)): 
+			cam = i
+			break
+	editor_3d_cam = cam
+	return cam
 
 # ============== Static methods ============== #
 
