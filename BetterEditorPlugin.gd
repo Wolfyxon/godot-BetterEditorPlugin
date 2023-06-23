@@ -59,7 +59,7 @@ class PopupMenuItem:
 	## Item index
 	var index:int
 
-	func _init(source:PopupMenu,index:int):
+	func _init(source:PopupMenu, index:int):
 		popup_menu = source
 		self.index = index
 	
@@ -138,7 +138,7 @@ func _scene_tree_context_menu_opened():
 				add_node_context_option(i["label"],{"strID":i["strID"]})
 	
 
-func _allow_file_option(file_names:PackedStringArray,allowed_types:PackedStringArray) -> bool:
+func _allow_file_option(file_names:PackedStringArray, allowed_types:PackedStringArray) -> bool:
 	if allowed_types.size()==0: return true
 	
 	for i in file_names:
@@ -226,7 +226,7 @@ func register_fs_file_context_option(label:String, id:String="", icon:Texture2D=
 	)
 
 ## Adds a button to the FileSystem dock context (right click) menu. Returns index of the created item
-func add_fs_context_menu_item(label:String,meta=null) -> int:
+func add_fs_context_menu_item(label:String, meta=null) -> int:
 	var id = get_id_for_new_popup_menu_item(get_fs_context_menu())
 	get_fs_context_menu().add_item(label,id)
 	var idx = id-1#get_fs_context_menu().get_item_index(id)
