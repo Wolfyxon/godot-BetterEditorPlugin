@@ -399,6 +399,10 @@ func get_editor_3d_camera() -> Camera3D:
 	editor_3d_cam = cam
 	return cam
 
+## Returns an unexposed CanvasItemEditor
+func get_canvas_item_editor() -> VBoxContainer:
+	return get_first_child_by_class_name(get_editor_interface().get_editor_main_screen(),"CanvasItemEditor")
+
 # ============== Static methods ============== #
 
 ## Manually specified IDs sometimes cause problems such as the wrong option being detected as pressed. This uses the index.
