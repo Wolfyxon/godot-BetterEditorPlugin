@@ -404,7 +404,7 @@ func get_editor_in_main_screen(editor:String):
 	return get_first_child_by_class_name(get_editor_interface().get_editor_main_screen(),editor)
 
 ## Returns an unexposed CanvasItemEditor
-func get_canvas_item_editor() -> VBoxContainer:
+func get_canvas_item_editor() -> Node:
 	return get_editor_in_main_screen("CanvasItemEditor")
 
 ## Returns an unexposed Node3DEditor
@@ -412,29 +412,35 @@ func get_node_3d_editor() -> VBoxContainer:
 	return get_editor_in_main_screen("Node3DEditor")
 
 ## Returns an unexposed CPUParticles3DEditor
-func get_cpu_particles_3d_editor() -> VBoxContainer:
+func get_cpu_particles_3d_editor() -> Control:
 	return get_editor_in_main_screen("CPUParticles3DEditor")
 
 ## Returns an unexposed GPUParticles3DEditor
-func get_gpu_particles_3d_editor() -> VBoxContainer:
+func get_gpu_particles_3d_editor() -> Control:
 	return get_editor_in_main_screen("GPUParticles3DEditor")
 
-func get_mesh_instance_3d_editor() -> VBoxContainer:
+## Returns an unexposed MeshInstance3DEditor
+func get_mesh_instance_3d_editor() -> Control:
 	return get_editor_in_main_screen("MeshInstance3DEditor")
 
-func get_mesh_library_editor() -> VBoxContainer:
+## Returns an unexposed MeshLibraryEditor
+func get_mesh_library_editor() -> Control:
 	return get_editor_in_main_screen("MeshLibraryEditor")
 
-func get_multi_mesh_editor() -> VBoxContainer:
+## Returns an unexposed MeshLibraryEditor
+func get_multi_mesh_editor() -> Control:
 	return get_editor_in_main_screen("MeshLibraryEditor")
 	
-func get_skeleton_2d_editor() -> VBoxContainer:
+## Returns an unexposed Skeleton2DEditor
+func get_skeleton_2d_editor() -> Control:
 	return get_editor_in_main_screen("Skeleton2DEditor")
 
-func get_sprite_2d_editor() -> VBoxContainer:
+## Returns an unexposed Sprite2DEditor
+func get_sprite_2d_editor() -> Control:
 	return get_editor_in_main_screen("Sprite2DEditor")
 
-func get_navigation_mesh_editor() -> VBoxContainer:
+## Returns an unexposed NavigationMeshEditor
+func get_navigation_mesh_editor() -> Control:
 	return get_editor_in_main_screen("NavigationMeshEditor")
 
 # ============== Static methods ============== #
