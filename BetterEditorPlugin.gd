@@ -443,6 +443,14 @@ func get_sprite_2d_editor() -> Control:
 func get_navigation_mesh_editor() -> Control:
 	return get_editor_in_main_screen("NavigationMeshEditor")
 
+## Returns the edited scene container which is a [SubViewport]. It doesn't require a scene to be open.
+func get_scene_sub_viewport() -> SubViewport:
+	for i in get_descendants_by_class_name(get_canvas_item_editor(),"SubViewport"):
+		if !get_editor_interface().get_edited_scene_root() or (i == get_editor_interface().get_edited_scene_root().get_parent()):
+			return i
+	
+	return null
+
 # ============== Static methods ============== #
 
 ## Manually specified IDs sometimes cause problems such as the wrong option being detected as pressed. This uses the index.
