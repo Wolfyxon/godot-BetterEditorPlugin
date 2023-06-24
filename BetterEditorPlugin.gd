@@ -407,6 +407,11 @@ func get_editor_in_main_screen(editor:String):
 func get_canvas_item_editor() -> VBoxContainer:
 	return get_editor_in_main_screen("CanvasItemEditor")
 
+## Returns an unexposed Node3DEditor
+func get_node_3d_editor() -> VBoxContainer:
+	return get_editor_in_main_screen("Node3DEditor")
+
+
 # ============== Static methods ============== #
 
 ## Manually specified IDs sometimes cause problems such as the wrong option being detected as pressed. This uses the index.
