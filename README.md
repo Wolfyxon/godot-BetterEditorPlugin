@@ -35,5 +35,9 @@ All methods are explained. In the script editor on the top right corner press **
 This class might stop working properly if a Godot update changes the node structure of the editor since it uses methods that are not in the official API by manually finding and modifying nodes. This class is also currently work-in-progress.
 
 ## TODO
+- Getting scene SubViewport without getting the current scene [urgent]
 - Full property change detection
+- Getting editor position in 2D scene
+- Getting current script text editor
+- File change detection
 
