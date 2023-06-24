@@ -448,7 +448,7 @@ func get_scene_sub_viewport() -> SubViewport:
 	for i in get_descendants_by_class_name(get_canvas_item_editor(),"SubViewport"):
 		if !get_editor_interface().get_edited_scene_root() or (i == get_editor_interface().get_edited_scene_root().get_parent()):
 			return i
-	
+	push_error("Failed to get the scene SubViewport. This is not supposed to happen")
 	return null
 
 # ============== Static methods ============== #
