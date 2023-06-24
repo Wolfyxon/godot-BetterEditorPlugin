@@ -134,10 +134,13 @@ func _allow_node_option(nodes:Array[Node], allowed_classes:Array, strict:=false)
 func _scene_tree_context_menu_opened():
 	for i in _registered_node_options:
 		if _allow_node_option(get_selected_nodes(), i["allowed_classes"]):
+			var label = i["label"]
+			var id = i["strID"]
+			if id == "": id = label
 			if ("icon" in i) and i["icon"]:
-				add_node_context_icon_option(i["label"],i["icon"],{"strID":i["strID"]})
+				add_node_context_icon_option(label,i["icon"],{"strID":id})
 			else:
-				add_node_context_option(i["label"],{"strID":i["strID"]})
+				add_node_context_option(label,{"strID":id})
 	
 
 func _allow_file_option(file_names:PackedStringArray, allowed_types:PackedStringArray) -> bool:
@@ -154,20 +157,23 @@ func _fs_context_menu_opened():
 		filesystem_dir_context_menu_opened.emit()
 		for i in _registered_fs_dir_options:
 			var label = i["label"]
+			var id = i["strID"]
+			if id == "": id = label
 			if ("icon" in i) and i["icon"]:
-				add_fs_context_menu_icon_item(i["label"],i["icon"],{"strID":i["strID"]})
+				add_fs_context_menu_icon_item(i["label"],i["icon"],{"strID":id})
 			else:
-				add_fs_context_menu_item(i["label"],{"strID":i["strID"]})
+				add_fs_context_menu_item(i["label"],{"strID":id})
 		
 	if is_fs_selected_path_file_or_dir() == PATH_TYPE.File:
 		filesystem_file_context_menu_opened.emit()
 		for i in _registered_fs_file_options:
 			if _allow_file_option(get_fs_selected_names(),i["allowed_types"]):
 				var label = i["label"]
+				var id = i["strID"]
 				if ("icon" in i) and i["icon"]:
-					add_fs_context_menu_icon_item(i["label"],i["icon"],{"strID":i["strID"]})
+					add_fs_context_menu_icon_item(i["label"],i["icon"],{"strID":id})
 				else:
-					add_fs_context_menu_item(i["label"],{"strID":i["strID"]})
+					add_fs_context_menu_item(i["label"],{"strID":id})
 
 func _popup_menu_index_clicked_func_forward(index:int, popupmenu:PopupMenu, callable:Callable):
 	var item = PopupMenuItem.new(popupmenu, index)
