@@ -37,6 +37,5 @@ This class might stop working properly if a Godot update changes the node struct
 ## TODO
 We are planning or currently working on adding these features:
 - Full property change detection
-- Getting current script text editor
 - File change detection
 
