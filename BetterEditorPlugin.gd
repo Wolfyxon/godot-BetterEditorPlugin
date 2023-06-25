@@ -453,6 +453,10 @@ func get_scene_sub_viewport() -> SubViewport:
 	push_error("Failed to get the scene SubViewport. This is not supposed to happen")
 	return null
 
+## Returns the "camera" position in the 2D scene editor.
+func get_2d_transform() -> Transform2D:
+	return get_scene_sub_viewport().get_screen_transform()
+
 # ============== Static methods ============== #
 
 ## Manually specified IDs sometimes cause problems such as the wrong option being detected as pressed. This uses the index.
