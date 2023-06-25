@@ -463,6 +463,12 @@ func get_current_script_editor() -> ScriptEditorBase:
 		if i.is_visible_in_tree(): return i
 	return null
 
+## Gets the [CodeEdit] text editor from the currently open [ScriptEditorBase]
+func get_code_edit_from_current_script_editor() -> CodeEdit:
+	var editor = get_current_script_editor()
+	if !editor: return null
+	return get_code_edit_from_script_editor(editor)
+
 # ============== Static methods ============== #
 
 ## Gets the [CodeEdit] text editor from the specified [ScriptEditorBase]
