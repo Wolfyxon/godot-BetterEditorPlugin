@@ -457,6 +457,12 @@ func get_scene_sub_viewport() -> SubViewport:
 func get_2d_transform() -> Transform2D:
 	return get_scene_sub_viewport().get_screen_transform()
 
+## Gets the currently open [ScriptEditorBase]
+func get_current_script_editor() -> ScriptEditorBase:
+	for i in get_editor_interface().get_script_editor().get_open_script_editors():
+		if i.is_visible_in_tree(): return i
+	return null
+
 # ============== Static methods ============== #
 
 ## Manually specified IDs sometimes cause problems such as the wrong option being detected as pressed. This uses the index.
