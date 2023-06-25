@@ -21,7 +21,10 @@ Please note that more features will appear over time.
 - manipulating items in the FileSystem dock
 - getting selected file and directory paths in the FileSystem dock
 - Custom context menu options for FileSystem dock and Node Tree
+- Manipulating the editor's 3D camera
+- Accessing the script CodeEdit text editor
 - Many useful static utility functions that might also be helpful outisde plugins
+- and more!
 
 Feel free to suggest anything you'd like to see!
 
