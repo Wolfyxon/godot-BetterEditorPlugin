@@ -1,5 +1,6 @@
 ## A class for making editor plugins with more options than regular [EditorPlugin] and also.
-## some additional utilities.
+## some additional utilities. [br]
+## Wiki can be found at [url]https://github.com/Wolfyxon/godot-BetterEditorPlugin/wiki[/url]
 ## [codeblock]
 ## @tool
 ## extends BetterEditorPlugin 
