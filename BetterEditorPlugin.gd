@@ -400,7 +400,7 @@ func get_editor_3d_camera() -> Camera3D:
 	return cam
 
 ## Gets a editor from the EditorMainScreen.
-func get_editor_in_main_screen(editor:String):
+func get_editor_in_main_screen(editor:String) -> Node:
 	return get_first_child_by_class_name(get_editor_interface().get_editor_main_screen(),editor)
 
 ## Returns an unexposed CanvasItemEditor
