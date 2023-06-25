@@ -465,6 +465,10 @@ func get_current_script_editor() -> ScriptEditorBase:
 
 # ============== Static methods ============== #
 
+## Gets the [CodeEdit] text editor from the specified [ScriptEditorBase]
+static func get_code_edit_from_script_editor(script_editor:ScriptEditorBase) -> CodeEdit:
+	return get_first_descendant_by_class_name(script_editor,"CodeEdit")
+
 ## Manually specified IDs sometimes cause problems such as the wrong option being detected as pressed. This uses the index.
 static func get_id_for_new_popup_menu_item(popupmenu:PopupMenu) -> int:
 	return popupmenu.item_count+1
