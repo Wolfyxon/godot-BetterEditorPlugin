@@ -347,6 +347,7 @@ func get_selected_nodes() -> Array[Node]:
 
 	return res
 
+## Permanentaly (unless the plugin is disabled) adds an option to the directory context (right click) menu in the Scene node tree dock
 func register_node_context_option(label:String, id:String="", icon:Texture2D=null, allowed_classes:Array=[]):
 	_registered_node_options.append({
 		"label": label,
