@@ -21,7 +21,7 @@ signal filesystem_dir_context_menu_opened
 signal filesystem_file_context_menu_opened
 signal filesystem_context_menu_item_clicked(item:PopupMenuItem)
 
-signal scene_tree_dock_context_menu_item_clicked(item:PopupMenuItem)
+signal node_context_menu_item_clicked(item:PopupMenuItem)
 
 enum PATH_TYPE {Nonexistent, File, Directory}
 
@@ -112,7 +112,7 @@ func _notification(what):
 		fs_context_menu.about_to_popup.connect(_fs_context_menu_opened)
 		forward_popup_menu_item_signal(get_fs_context_menu(),filesystem_context_menu_item_clicked)
 		
-		forward_popup_menu_item_signal(get_node_context_menu(),scene_tree_dock_context_menu_item_clicked)
+		forward_popup_menu_item_signal(get_node_context_menu(),node_context_menu_item_clicked)
 		get_node_context_menu().about_to_popup.connect(_scene_tree_context_menu_opened)
 	
 	if what == NOTIFICATION_EXIT_TREE:
