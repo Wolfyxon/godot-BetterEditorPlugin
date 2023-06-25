@@ -36,7 +36,6 @@ This class might stop working properly if a Godot update changes the node struct
 
 ## TODO
 We are planning or currently working on adding these features:
-- Getting scene SubViewport without getting the current scene [urgent]
 - Full property change detection
 - Getting editor position in 2D scene
 - Getting current script text editor
