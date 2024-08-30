@@ -19,9 +19,9 @@ class_name BetterEditorPlugin
 
 signal filesystem_dir_context_menu_opened
 signal filesystem_file_context_menu_opened
-signal filesystem_context_menu_item_clicked(item:PopupMenuItem)
+signal filesystem_context_menu_item_clicked(item: PopupMenuItem)
 
-signal node_context_menu_item_clicked(item:PopupMenuItem)
+signal node_context_menu_item_clicked(item: PopupMenuItem)
 
 enum PATH_TYPE {Nonexistent, File, Directory}
 
@@ -57,11 +57,11 @@ var _registered_node_options = [
 class PopupMenuItem:
 	
 	## The source [PopupMenu]
-	var popup_menu:PopupMenu
+	var popup_menu: PopupMenu
 	## Item index
 	var index:int
 
-	func _init(source:PopupMenu, index:int):
+	func _init(source: PopupMenu, index: int):
 		popup_menu = source
 		self.index = index
 	
@@ -78,21 +78,21 @@ class PopupMenuItem:
 	## Returns the item String ID used for identifying the options. Applies only to custom options.
 	func get_string_id() -> String:
 		var meta = get_metadata()
-		if meta==null or !typeof(meta) == TYPE_DICTIONARY: return ""
+		if meta == null or !typeof(meta) == TYPE_DICTIONARY: return ""
 		return meta["strID"]
 	## Checks if the item is disabled
 	func is_disabled() -> bool: return popup_menu.is_item_disabled(index)
 	
 	## Sets the item text
-	func set_text(text:String): popup_menu.set_item_text(index,text)
+	func set_text(text: String): popup_menu.set_item_text(index,text)
 	## Sets the item icon texture
-	func set_icon(icon:Texture2D): popup_menu.set_item_icon(index,icon)
+	func set_icon(icon: Texture2D): popup_menu.set_item_icon(index,icon)
 	## Sets item metadata. WARNING: this might remove the String ID
 	func set_metadata(meta): popup_menu.set_item_metadata(index,meta)
 	## Sets the item ID. Proceed with caution as this often causes issues
-	func set_id(id:int): popup_menu.set_item_id(index, id)
+	func set_id(id: int): popup_menu.set_item_id(index, id)
 	## Sets if the item is disabled or not
-	func set_disabled(disabled:bool): popup_menu.set_item_disabled(index,disabled)
+	func set_disabled(disabled: bool): popup_menu.set_item_disabled(index,disabled)
 	## Disables the item
 	func disable(): set_disabled(true)
 	## Enables the item
@@ -118,8 +118,8 @@ func _notification(what):
 	if what == NOTIFICATION_EXIT_TREE:
 		pass
 
-func _allow_node_option(nodes:Array[Node], allowed_classes:Array, strict:=false) -> bool:
-	if allowed_classes.size()==0: return true
+func _allow_node_option(nodes: Array[Node], allowed_classes: Array, strict := false) -> bool:
+	if allowed_classes.size() == 0: return true
 	for i in nodes:
 		if strict and !(i.get_class() in allowed_classes): return false
 		if !strict:
@@ -139,13 +139,13 @@ func _scene_tree_context_menu_opened():
 			var id = i["strID"]
 			if id == "": id = label
 			if ("icon" in i) and i["icon"]:
-				add_node_context_icon_option(label,i["icon"],{"strID":id})
+				add_node_context_icon_option(label, i["icon"], {"strID": id})
 			else:
-				add_node_context_option(label,{"strID":id})
+				add_node_context_option(label, {"strID": id})
 	
 
-func _allow_file_option(file_names:PackedStringArray, allowed_types:PackedStringArray) -> bool:
-	if allowed_types.size()==0: return true
+func _allow_file_option(file_names: PackedStringArray, allowed_types: PackedStringArray) -> bool:
+	if allowed_types.size() == 0: return true
 	
 	for i in file_names:
 		if !( get_file_extension(i) in allowed_types ): return false
@@ -161,9 +161,9 @@ func _fs_context_menu_opened():
 			var id = i["strID"]
 			if id == "": id = label
 			if ("icon" in i) and i["icon"]:
-				add_fs_context_menu_icon_item(i["label"],i["icon"],{"strID":id})
+				add_fs_context_menu_icon_item(i["label"], i["icon"], {"strID": id})
 			else:
-				add_fs_context_menu_item(i["label"],{"strID":id})
+				add_fs_context_menu_item(i["label"], {"strID": id})
 		
 	if is_fs_selected_path_file_or_dir() == PATH_TYPE.File:
 		filesystem_file_context_menu_opened.emit()
@@ -172,15 +172,15 @@ func _fs_context_menu_opened():
 				var label = i["label"]
 				var id = i["strID"]
 				if ("icon" in i) and i["icon"]:
-					add_fs_context_menu_icon_item(i["label"],i["icon"],{"strID":id})
+					add_fs_context_menu_icon_item(i["label"], i["icon"], {"strID": id})
 				else:
 					add_fs_context_menu_item(i["label"],{"strID":id})
 
-func _popup_menu_index_clicked_func_forward(index:int, popupmenu:PopupMenu, callable:Callable):
+func _popup_menu_index_clicked_func_forward(index: int, popupmenu: PopupMenu, callable: Callable):
 	var item = PopupMenuItem.new(popupmenu, index)
 	callable.call(item)
 
-func _popup_menu_index_clicked_signal_forward(index:int, popupmenu:PopupMenu, signal_:Signal):
+func _popup_menu_index_clicked_signal_forward(index: int, popupmenu: PopupMenu, signal_: Signal):
 	var item = PopupMenuItem.new(popupmenu, index)
 	signal_.emit(item)
 
@@ -190,15 +190,15 @@ func _signal_forward(source:Signal, target:Signal):
 # ============== User methods ============== #
 
 ## Emits another signal when a specified signal is emitted. Currently works only with signals without any arguments
-func forward_signal(source_signal:Signal, target_signal:Signal):
+func forward_signal(source_signal: Signal, target_signal: Signal):
 	source_signal.connect(_signal_forward.bind(target_signal))
 
 ## Converts a [PopupMenu] index_pressed signal result into a [PopupMenuItem] with all required info then calls the specified function.
-func connect_popup_menu_item_signal(popupmenu:PopupMenu, callable:Callable):
+func connect_popup_menu_item_signal(popupmenu: PopupMenu, callable: Callable):
 	popupmenu.index_pressed.connect( _popup_menu_index_clicked_func_forward.bind(popupmenu, callable) )
 
 ## Converts a [PopupMenu] index_pressed signal result into a [PopupMenuItem] with all required info then emits the specified signal.
-func forward_popup_menu_item_signal(popupmenu:PopupMenu, signal_:Signal):
+func forward_popup_menu_item_signal(popupmenu: PopupMenu, signal_: Signal):
 	popupmenu.index_pressed.connect( _popup_menu_index_clicked_signal_forward.bind(popupmenu, signal_) )
 
 ## Returns the current context (right click) menu in the FileSystem dock.
@@ -212,7 +212,7 @@ func get_fs_context_menu() -> PopupMenu:
 	return menu
 
 ## Permanentaly (unless the plugin is disabled) adds an option to the directory context (right click) menu in the FileSystem dock
-func register_fs_dir_context_option(label:String, id:String="", icon:Texture2D=null):
+func register_fs_dir_context_option(label: String, id: String="", icon: Texture2D=null):
 	if id == "": id = label
 	_registered_fs_dir_options.append(
 		{
@@ -223,7 +223,7 @@ func register_fs_dir_context_option(label:String, id:String="", icon:Texture2D=n
 	)
 
 ## Permanentaly (unless the plugin is disabled) adds an option to the file context (right click) menu in the FileSystem dock
-func register_fs_file_context_option(label:String, id:String="", icon:Texture2D=null, allowed_types:PackedStringArray=[]):
+func register_fs_file_context_option(label: String, id: String="", icon: Texture2D = null, allowed_types: PackedStringArray = []):
 	if id == "": id = label
 	_registered_fs_file_options.append(
 		{
@@ -235,36 +235,36 @@ func register_fs_file_context_option(label:String, id:String="", icon:Texture2D=
 	)
 
 ## Adds a button to the FileSystem dock context (right click) menu. Returns index of the created item
-func add_fs_context_menu_item(label:String, meta=null) -> int:
+func add_fs_context_menu_item(label: String, meta = null) -> int:
 	var id = get_id_for_new_popup_menu_item(get_fs_context_menu())
-	get_fs_context_menu().add_item(label,id)
-	var idx = id-1#get_fs_context_menu().get_item_index(id)
-	get_fs_context_menu().set_item_metadata(idx,meta)
+	get_fs_context_menu().add_item(label, id)
+	var idx = id - 1 #get_fs_context_menu().get_item_index(id)
+	get_fs_context_menu().set_item_metadata(idx, meta)
 	return idx
 
 ## Adds a button with an icon to the FileSystem dock context (right click) menu. Returns index of the created item
-func add_fs_context_menu_icon_item(label:String, icon:Texture2D, meta=null) -> int:
+func add_fs_context_menu_icon_item(label: String, icon: Texture2D, meta = null) -> int:
 	var id = get_id_for_new_popup_menu_item(get_fs_context_menu())
-	get_fs_context_menu().add_icon_item(icon,label,id)
+	get_fs_context_menu().add_icon_item(icon, label, id)
 	var idx = id-1#get_fs_context_menu().get_item_index(id)
-	get_fs_context_menu().set_item_metadata(idx,meta)
+	get_fs_context_menu().set_item_metadata(idx, meta)
 	return idx
 
 ## Adds a check button to the FileSystem dock context (right click) menu. Returns index of the created item
-func add_fs_context_menu_check_item(label:String, meta=null) -> int:
+func add_fs_context_menu_check_item(label: String, meta = null) -> int:
 	var id = get_id_for_new_popup_menu_item(get_fs_context_menu())
-	get_fs_context_menu().add_check_item(label,id)
+	get_fs_context_menu().add_check_item(label, id)
 	var idx = id-1#get_fs_context_menu().get_item_index(id)
-	get_fs_context_menu().set_item_metadata(idx,meta)
+	get_fs_context_menu().set_item_metadata(idx, meta)
 	return idx
 
 ## Adds a check button with an icon to the FileSystem dock context (right click) menu
-func add_fs_context_menu_icon_check_item(label:String, icon:Texture2D):
+func add_fs_context_menu_icon_check_item(label: String, icon: Texture2D):
 	get_fs_context_menu().add_icon_check_item(icon, label, get_id_for_new_popup_menu_item(get_fs_context_menu()))
 
 ## Gets the file tree in the FileSystem dock.
 func get_fs_tree() -> Tree:
-	return get_first_descendant_by_class_name(get_editor_interface().get_file_system_dock(),"Tree",true)
+	return get_first_descendant_by_class_name(get_editor_interface().get_file_system_dock(), "Tree", true)
 
 ## Gets the currently selected [TreeItem] in the FileSystem dock
 func get_fs_selected_item() -> TreeItem:
@@ -309,7 +309,7 @@ func is_fs_selected_path_file_or_dir() -> PATH_TYPE:
 ## Returns a unexposed class SceneTreeDock. 
 func get_scene_tree_dock() -> VBoxContainer:
 	if scene_tree_dock: return scene_tree_dock
-	var d = get_first_descendant_by_class_name(get_editor_interface().get_base_control(),"SceneTreeDock")
+	var d = get_first_descendant_by_class_name(get_editor_interface().get_base_control(), "SceneTreeDock")
 	scene_tree_dock = d
 	return d
 
@@ -319,7 +319,7 @@ func get_node_context_menu() -> PopupMenu:
 
 ## Returns the SceneTreeDock's node [Tree]
 func get_scene_node_tree() -> Tree:
-	return get_first_child_by_class_name(get_first_descendant_by_class_name(get_scene_tree_dock(),"SceneTreeEditor"),"Tree")
+	return get_first_child_by_class_name(get_first_descendant_by_class_name(get_scene_tree_dock(), "SceneTreeEditor"), "Tree")
 
 ## Returns the path of the first selected [Node]
 func get_selected_node_path() -> NodePath:
@@ -349,7 +349,7 @@ func get_selected_nodes() -> Array[Node]:
 	return res
 
 ## Permanentaly (unless the plugin is disabled) adds an option to the directory context (right click) menu in the Scene node tree dock
-func register_node_context_option(label:String, id:String="", icon:Texture2D=null, allowed_classes:Array=[]):
+func register_node_context_option(label: String, id: String="", icon: Texture2D = null, allowed_classes: Array = []):
 	_registered_node_options.append({
 		"label": label,
 		"strID": id,
@@ -358,7 +358,7 @@ func register_node_context_option(label:String, id:String="", icon:Texture2D=nul
 	})
 
 ## Adds a button to the Scene dock context (right click) menu. Returns index of the created item
-func add_node_context_option(label:String, meta=null) -> int:
+func add_node_context_option(label: String, meta = null) -> int:
 	var id = get_id_for_new_popup_menu_item(get_node_context_menu())
 	var idx = id - 1
 	get_node_context_menu().add_item(label, id)
@@ -366,7 +366,7 @@ func add_node_context_option(label:String, meta=null) -> int:
 	return idx
 
 ## Adds a button with an icon to the Scene dock context (right click) menu. Returns index of the created item
-func add_node_context_icon_option(label:String, icon:Texture2D, meta=null) -> int:
+func add_node_context_icon_option(label: String, icon: Texture2D, meta = null) -> int:
 	var id = get_id_for_new_popup_menu_item(get_node_context_menu())
 	var idx = id - 1
 	get_node_context_menu().add_icon_item(icon, label, id)
@@ -374,7 +374,7 @@ func add_node_context_icon_option(label:String, icon:Texture2D, meta=null) -> in
 	return idx
 
 ## Adds a check button to the Scene dock context (right click) menu. Returns index of the created item
-func add_node_context_check_option(label:String, meta=null) -> int:
+func add_node_context_check_option(label: String, meta = null) -> int:
 	var id = get_id_for_new_popup_menu_item(get_node_context_menu())
 	var idx = id - 1
 	get_node_context_menu().add_check_item(label, id)
@@ -382,7 +382,7 @@ func add_node_context_check_option(label:String, meta=null) -> int:
 	return idx
 
 ## Adds a check button with an icon to the Scene dock context (right click) menu
-func add_node_context_icon_check_option(label:String, icon:Texture2D, meta=null) -> int:
+func add_node_context_icon_check_option(label: String, icon: Texture2D, meta = null) -> int:
 	var id = get_id_for_new_popup_menu_item(get_node_context_menu())
 	var idx = id - 1
 	get_node_context_menu().add_icon_check_item(icon, label, id)
@@ -393,8 +393,8 @@ func add_node_context_icon_check_option(label:String, icon:Texture2D, meta=null)
 func get_editor_3d_camera() -> Camera3D:
 	if editor_3d_cam: return editor_3d_cam
 	var scene = get_editor_interface().get_edited_scene_root()
-	var cam:Camera3D
-	for i in get_descendants_by_class_name(get_editor_interface().get_base_control(),"Camera3D"):
+	var cam: Camera3D
+	for i in get_descendants_by_class_name(get_editor_interface().get_base_control(), "Camera3D"):
 		if !scene or !(i in get_descendants(scene)): 
 			cam = i
 			break
@@ -402,7 +402,7 @@ func get_editor_3d_camera() -> Camera3D:
 	return cam
 
 ## Gets a editor from the EditorMainScreen.
-func get_editor_in_main_screen(editor:String) -> Node:
+func get_editor_in_main_screen(editor: String) -> Node:
 	return get_first_child_by_class_name(get_editor_interface().get_editor_main_screen(),editor)
 
 ## Returns an unexposed CanvasItemEditor
@@ -472,15 +472,15 @@ func get_code_edit_from_current_script_editor() -> CodeEdit:
 # ============== Static methods ============== #
 
 ## Gets the [CodeEdit] text editor from the specified [ScriptEditorBase]
-static func get_code_edit_from_script_editor(script_editor:ScriptEditorBase) -> CodeEdit:
+static func get_code_edit_from_script_editor(script_editor: ScriptEditorBase) -> CodeEdit:
 	return get_first_descendant_by_class_name(script_editor,"CodeEdit")
 
 ## Manually specified IDs sometimes cause problems such as the wrong option being detected as pressed. This uses the index.
-static func get_id_for_new_popup_menu_item(popupmenu:PopupMenu) -> int:
+static func get_id_for_new_popup_menu_item(popupmenu: PopupMenu) -> int:
 	return popupmenu.item_count+1
 
 ## Returns a String type name of a TYPE enum. Example [code]print( type_name( typeof("hello") ) )[/code] will print [code]String[/code]
-static func type_name(type:int) -> String:
+static func type_name(type: int) -> String:
 	match type:
 		TYPE_AABB: return "AABB"
 		TYPE_ARRAY: return "Array"
@@ -529,7 +529,7 @@ static func type_name(type:int) -> String:
 static func string_typeof(value) -> String: return type_name(typeof(value))
 
 ## Returns all selected [TreeItem]s in a [Tree]
-static func get_selected_tree_items(tree:Tree) -> Array[TreeItem]:
+static func get_selected_tree_items(tree: Tree) -> Array[TreeItem]:
 	var res:Array[TreeItem] = []
 	var first = tree.get_selected()
 	var next = tree.get_next_selected(null)
@@ -541,24 +541,24 @@ static func get_selected_tree_items(tree:Tree) -> Array[TreeItem]:
 	return res
 
 ## A recursive function that returns all nodes in tree of selected node.
-static func get_descendants(node:Node,include_internal:=true) -> Array[Node]:
+static func get_descendants(node: Node, include_internal := true) -> Array[Node]:
 	var res:Array[Node] = []
 	
 	for i in node.get_children(include_internal):
-		if i.get_child_count(include_internal) != 0: res.append_array(get_descendants(i,include_internal))
+		if i.get_child_count(include_internal) != 0: res.append_array(get_descendants(i, include_internal))
 		res.append(i)
 	
 	return res
 
 ## Returns all values from given array matching the specified type.
-static func get_values_by_type(array:Array, type:int) -> Array:
+static func get_values_by_type(array: Array, type: int) -> Array:
 	var res = []
 	for i in array:
 		if type == typeof(i): res.append(i)
 	return res
 
 ## Returns all [Object]s and classes extending them such as [Node]s from the given array, matching (if [code]strict[/code] is true) the given class name or extending it (if [code]strict[/code] is false) 
-static func get_objects_by_class_name(array:Array, class_name_:String, strict:=false) -> Array:
+static func get_objects_by_class_name(array: Array, class_name_: String, strict := false) -> Array:
 	var res = []
 	for i in array:
 		if i is Object:
@@ -567,11 +567,11 @@ static func get_objects_by_class_name(array:Array, class_name_:String, strict:=f
 			else:
 				if i.is_class(class_name_): res.append(i)
 		else:
-			push_error(str(i)+" is not an Object. It's an "+string_typeof(i)+". Consider using get_values_by_type()")
+			push_error(str(i) + " is not an Object. It's an " + string_typeof(i) + ". Consider using get_values_by_type()")
 	return res
 
 ## Returns the first [Object] or a class extending it such as [Node] from the given array, matching (if [code]strict[/code] is true) the given class name or extending it (if [code]strict[/code] is false) 
-static func get_first_object_by_class_name(array:Array, class_name_:String, strict:=false) -> Object:
+static func get_first_object_by_class_name(array: Array, class_name_: String, strict := false) -> Object:
 	for i in array:
 		if i is Object:
 			if strict: 
@@ -579,50 +579,49 @@ static func get_first_object_by_class_name(array:Array, class_name_:String, stri
 			else:
 				if i.is_class(class_name_): return i
 		else:
-			push_error(str(i)+" is not an Object. It's an "+string_typeof(i)+". Consider using get_values_by_type()")
+			push_error(str(i)+" is not an Object. It's an " + string_typeof(i) + ". Consider using get_values_by_type()")
 	return null
 	
 
 ## Returns all children [Node]s from the given array, matching (if [code]strict[/code] is true) the given class name or extending it (if [code]strict[/code] is false) 
-static func get_children_by_class_name(node:Node, class_name_:String, strcit:=false,include_internal:=true) -> Array:
-	return get_objects_by_class_name(node.get_children(include_internal),class_name_,strcit)
+static func get_children_by_class_name(node: Node, class_name_: String, strcit := false, include_internal := true) -> Array:
+	return get_objects_by_class_name(node.get_children(include_internal), class_name_,strcit)
 	
 ## Returns all descendant [Node]s from the given array, matching (if [code]strict[/code] is true) the given class name or extending it (if [code]strict[/code] is false) 
-static func get_descendants_by_class_name(node:Node, class_name_:String, strcit:=false,include_internal:=true) -> Array:
-	return get_objects_by_class_name(get_descendants(node,include_internal),class_name_,strcit)
+static func get_descendants_by_class_name(node: Node, class_name_: String, strcit := false, include_internal := true) -> Array:
+	return get_objects_by_class_name(get_descendants(node,include_internal), class_name_,strcit)
 	
 ## Returns the first child [Node] from the given array, matching (if [code]strict[/code] is true) the given class name or extending it (if [code]strict[/code] is false) 
-static func get_first_child_by_class_name(node:Node, class_name_:String, strcit:=false,include_internal:=true) -> Node:
+static func get_first_child_by_class_name(node: Node, class_name_: String, strcit := false, include_internal := true) -> Node:
 	return get_first_object_by_class_name(node.get_children(include_internal),class_name_,strcit)
 	
 ## Returns the first descendant [Node] from the given array, matching (if [code]strict[/code] is true) the given class name or extending it (if [code]strict[/code] is false) 
-static func get_first_descendant_by_class_name(node:Node, class_name_:String, strcit:=false,include_internal:=true) -> Node:
-	return get_first_object_by_class_name(get_descendants(node,include_internal),class_name_,strcit)
+static func get_first_descendant_by_class_name(node: Node, class_name_: String, strcit := false, include_internal := true) -> Node:
+	return get_first_object_by_class_name(get_descendants(node, include_internal), class_name_, strcit)
 	
 ## Checks if a directory exists at the given local or absolute path.
-static func dir_exists(path:String) -> bool:
+static func dir_exists(path: String) -> bool:
 	if path == "res://": return true
 	return DirAccess.open(path).dir_exists(path)
 
 ## Checks if a file exists at the given local or absolute path.
-static func file_exists(path:String) -> bool:
+static func file_exists(path: String) -> bool:
 	if path == "res://": return false
 	return DirAccess.open(path.get_base_dir()).file_exists(path)
 
 ## Checks if a file or directory exists at the given local or absolute path.
-static func path_exists(path:String) -> bool:
+static func path_exists(path: String) -> bool:
 	return file_exists(path) or dir_exists(path)
 
 ## Determines is a file or a directory exists at the given path. Returns [enum PATH_TYPE.Nonexistent] if nothing exists.
-static func is_file_or_dir(path:String) -> PATH_TYPE:
+static func is_file_or_dir(path: String) -> PATH_TYPE:
 	if file_exists(path): return PATH_TYPE.File
 	if dir_exists(path): return PATH_TYPE.Directory
 	return PATH_TYPE.Nonexistent
 
 ## Returns a file extension from the specified file name
-static func get_file_extension(file_name:String) -> String:
+static func get_file_extension(file_name: String) -> String:
 	var split = file_name.split(".")
-	if split.size()<2: return file_name
-	return split[split.size()-1]
-	
+	if split.size() < 2: return file_name
+	return split[split.size() - 1]
 	
