@@ -1,3 +1,8 @@
+# Deprecated
+This library will be continued in a new remade version and this repo no longer mantained.
+
+Once the remake is published, the README will include a link to the new repo and this repo will be archived in read-only mode.
+
 # BetterEditorPlugin
 A upgraded API for Godot editor plugins made in pure GDScript.  
 Supports Godot version 4.0 and above.
