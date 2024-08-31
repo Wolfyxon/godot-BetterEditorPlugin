@@ -390,16 +390,18 @@ func add_node_context_icon_check_option(label: String, icon: Texture2D, meta = n
 	return idx
 
 ## Returns the editor's [Camera3D]. Unfortunately, getting the editor's [Camera2D] isn't possible because it doesn't even use it.
+## @deprecated: Please use get_editor_interface().get_editor_viewport_3d().get_camera_3d() as now it works properly.
 func get_editor_3d_camera() -> Camera3D:
-	if editor_3d_cam: return editor_3d_cam
-	var scene = get_editor_interface().get_edited_scene_root()
-	var cam: Camera3D
-	for i in get_descendants_by_class_name(get_editor_interface().get_base_control(), "Camera3D"):
-		if !scene or !(i in get_descendants(scene)): 
-			cam = i
-			break
-	editor_3d_cam = cam
-	return cam
+	return get_editor_interface().get_editor_viewport_3d().get_camera_3d()
+	#if editor_3d_cam: return editor_3d_cam
+	#var scene = get_editor_interface().get_edited_scene_root()
+	#var cam: Camera3D
+	#for i in get_descendants_by_class_name(get_editor_interface().get_base_control(), "Camera3D"):
+		#if !scene or !(i in get_descendants(scene)): 
+			#cam = i
+			#break
+	#editor_3d_cam = cam
+	#return cam
 
 ## Gets a editor from the EditorMainScreen.
 func get_editor_in_main_screen(editor: String) -> Node:
