@@ -1,7 +1,5 @@
 # Deprecated
-This library may be continued in a new remade version (but it's not promised) and this repo no longer mantained.
-
-If the remake is published, this README will include a link to the new repo and this repo will be archived in read-only mode.
+This library is no longer being developed due to improvements in the Godot's plugin API and overall mess in the code.
 
 # BetterEditorPlugin
 A upgraded API for Godot editor plugins made in pure GDScript.  
